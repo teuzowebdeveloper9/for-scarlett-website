@@ -1078,43 +1078,37 @@
   backdrop-filter: blur(16px) saturate(140%);
 }
 
-.letter-scroll-rail {
+.letter-scroll-controls {
   position: absolute;
-  top: 0.85rem;
-  right: 0.85rem;
-  bottom: 0.85rem;
+  inset: 0;
   z-index: 3;
-  display: flex;
-  flex-direction: column;
-  gap: 0.55rem;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.6rem 0.5rem;
-  border: 1px solid rgba(255, 224, 236, 0.14);
-  border-radius: 999px;
-  background: rgba(8, 4, 7, 0.28);
-  box-shadow:
-    0 0 1.1rem rgba(255, 95, 159, 0.12),
-    inset 0 1px 0 rgba(255, 255, 255, 0.06);
   pointer-events: none;
 }
 
+.letter-scroll-button-up,
+.letter-scroll-button-down {
+  position: absolute;
+  right: 0.9rem;
+}
+
 .letter-scroll-button {
+  position: absolute;
   display: grid;
   place-items: center;
-  width: 2.35rem;
+  width: 2.55rem;
   aspect-ratio: 1;
-  border: 1px solid rgba(255, 224, 236, 0.24);
+  border: 1px solid rgba(255, 224, 236, 0.34);
   border-radius: 999px;
   background:
-    radial-gradient(circle at 35% 30%, rgba(255, 241, 246, 0.18), transparent 48%),
-    linear-gradient(180deg, rgba(255, 171, 200, 0.18), rgba(8, 4, 7, 0.72));
+    radial-gradient(circle at 35% 30%, rgba(255, 241, 246, 0.22), transparent 46%),
+    linear-gradient(180deg, rgba(255, 171, 200, 0.26), rgba(8, 4, 7, 0.8));
   color: var(--color-cream);
   box-shadow:
-    0 0 0.95rem rgba(255, 95, 159, 0.24),
+    0 0 1rem rgba(255, 95, 159, 0.34),
     inset 0 1px 0 rgba(255, 255, 255, 0.08);
   cursor: pointer;
   pointer-events: auto;
+  z-index: 5;
   animation: letter-bob 1.7s ease-in-out infinite;
 }
 
@@ -1129,6 +1123,14 @@
   font-size: 0.9rem;
 }
 
+.letter-scroll-button-up {
+  top: 0.85rem;
+}
+
+.letter-scroll-button-down {
+  bottom: 1rem;
+}
+
 .letter-text-wrap {
   position: relative;
   inset: 0;
@@ -1140,7 +1142,7 @@
   position: absolute;
   inset: 0;
   padding: clamp(1.2rem, 3.2vw, 2.1rem);
-  padding-right: 3.6rem;
+  padding-right: 3.9rem;
   padding-bottom: 6.5rem;
   overflow: auto;
   opacity: 0;
@@ -1158,7 +1160,7 @@
 .letter-text::after {
   content: '';
   display: block;
-  height: 3.5rem;
+  height: 4.25rem;
 }
 
 @keyframes letter-bob {

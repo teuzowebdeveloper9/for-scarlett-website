@@ -157,26 +157,27 @@ function LoveEnvelope() {
                       ))}
                     </div>
                   </div>
-                  <div className="letter-scroll-rail">
-                    <button
-                      className="letter-scroll-button"
-                      type="button"
-                      onClick={() => scrollByStep(-1)}
-                      aria-label="Scroll the letter up"
-                    >
-                      <FaChevronUp />
-                    </button>
-                    <button
-                      className="letter-scroll-button"
-                      type="button"
-                      onClick={() => scrollByStep(1)}
-                      aria-label="Scroll the letter down"
-                    >
-                      <FaChevronDown />
-                    </button>
-                  </div>
                 </div>
               </div>
+            </div>
+
+            <div className="letter-scroll-controls">
+              <button
+                className="letter-scroll-button letter-scroll-button-up"
+                type="button"
+                onClick={() => scrollByStep(-1)}
+                aria-label="Scroll the letter up"
+              >
+                <FaChevronUp />
+              </button>
+              <button
+                className="letter-scroll-button letter-scroll-button-down"
+                type="button"
+                onClick={() => scrollByStep(1)}
+                aria-label="Scroll the letter down"
+              >
+                <FaChevronDown />
+              </button>
             </div>
           </article>
         </div>
