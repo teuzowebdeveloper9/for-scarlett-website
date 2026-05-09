@@ -1,0 +1,70 @@
+:root {
+  --color-black: #010101;
+  --color-black-soft: #050304;
+  --color-pink: #ffc1d6;
+  --color-pink-hot: #ff5f9f;
+  --color-cream: #fff3f7;
+  --color-muted: #d7aebd;
+  --font-display: Georgia, 'Times New Roman', serif;
+  --font-body: Avenir, 'Avenir Next', Montserrat, system-ui, sans-serif;
+  --font-chinese: 'Songti SC', 'Noto Serif CJK SC', 'STSong', serif;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-7: 1.75rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-section: clamp(5rem, 12vw, 9rem);
+  --space-page: clamp(1.25rem, 5vw, 4rem);
+  --radius-md: 0.5rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 1rem;
+  color: var(--color-cream);
+  background: var(--color-black);
+  font: 16px/1.5 var(--font-body);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--color-black);
+  scroll-behavior: smooth;
+}
+
+body {
+  min-width: 320px;
+  min-height: 100svh;
+  margin: 0;
+  background: var(--color-black);
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+::selection {
+  background: rgba(255, 193, 214, 0.28);
+  color: var(--color-cream);
+}
