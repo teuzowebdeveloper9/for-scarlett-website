@@ -1052,7 +1052,7 @@
 .letter-scroll-button {
   position: absolute;
   right: 0.95rem;
-  bottom: 0.95rem;
+  bottom: 3.75rem;
   z-index: 2;
   display: grid;
   place-items: center;
@@ -1073,6 +1073,10 @@
   box-shadow:
     0 0 1.6rem rgba(255, 95, 159, 0.3),
     inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+
+.letter-scroll-button-down {
+  bottom: 0.95rem;
 }
 
 .letter-scroll-button svg {

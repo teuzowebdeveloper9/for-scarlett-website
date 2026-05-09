@@ -1,5 +1,5 @@
-import { useMemo, useRef, useState } from 'react'
-import { FaChevronDown, FaLanguage } from 'react-icons/fa6'
+import { useRef, useState } from 'react'
+import { FaChevronDown, FaChevronUp, FaLanguage } from 'react-icons/fa6'
 
 const letterCopy = {
   en: `Hi my love,
@@ -68,15 +68,16 @@ function LoveEnvelope() {
   const textPaneRefs = useRef({ en: null, zh: null })
   const activeTitle = language === 'en' ? 'For Karina' : '致 Karina'
   const activePrompt = language === 'en' ? 'Close the letter' : '收起这封信'
-  const activePane = useMemo(() => textPaneRefs.current[language], [language])
 
-  const scrollDown = () => {
+  const scrollByStep = (direction) => {
+    const activePane = textPaneRefs.current[language]
+
     if (!activePane) {
       return
     }
 
     activePane.scrollBy({
-      top: Math.max(220, activePane.clientHeight * 0.45),
+      top: direction * Math.max(220, activePane.clientHeight * 0.45),
       behavior: 'smooth',
     })
   }
@@ -157,7 +158,15 @@ function LoveEnvelope() {
                   <button
                     className="letter-scroll-button"
                     type="button"
-                    onClick={scrollDown}
+                    onClick={() => scrollByStep(-1)}
+                    aria-label="Scroll the letter up"
+                  >
+                    <FaChevronUp />
+                  </button>
+                  <button
+                    className="letter-scroll-button letter-scroll-button-down"
+                    type="button"
+                    onClick={() => scrollByStep(1)}
                     aria-label="Scroll the letter down"
                   >
                     <FaChevronDown />
