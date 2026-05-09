@@ -6,7 +6,7 @@ function openTrack(musicId) {
 
 function MusicGallery({ songs }) {
   return (
-    <section className="music-section" aria-labelledby="music-title">
+    <section className="music-section reveal-on-scroll" id="songs" aria-labelledby="music-title">
       <div className="section-heading">
         <p className="eyebrow">soundtrack</p>
         <h2 id="music-title">The songs I would play for you</h2>

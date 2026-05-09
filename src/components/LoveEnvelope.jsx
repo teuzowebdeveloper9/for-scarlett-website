@@ -85,7 +85,7 @@ function LoveEnvelope() {
   }
 
   return (
-    <section className="letter-section" aria-labelledby="letter-title">
+    <section className="letter-section reveal-on-scroll" id="letter" aria-labelledby="letter-title">
       <div className="section-heading">
         <p className="eyebrow">the words I keep for you</p>
         <h2 id="letter-title">A letter from the softest part of me</h2>

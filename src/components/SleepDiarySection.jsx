@@ -76,7 +76,7 @@ function SleepDiarySection() {
   }
 
   return (
-    <section className="sleep-diary-section" aria-labelledby="sleep-diary-title">
+    <section className="sleep-diary-section reveal-on-scroll" id="diary" aria-labelledby="sleep-diary-title">
       <div className="sleep-diary-shell">
         <div className="sleep-diary-copy">
           <p className="eyebrow">while I sleep</p>

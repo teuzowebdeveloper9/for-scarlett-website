@@ -51,7 +51,7 @@ function KarinaPhotoAlbum() {
   }, [isAutoPlaying])
 
   return (
-    <section className="album-section" aria-labelledby="album-title">
+    <section className="album-section reveal-on-scroll" id="photos" aria-labelledby="album-title">
       <div className="album-shell">
         <div className="album-copy">
           <p className="eyebrow">photo album</p>

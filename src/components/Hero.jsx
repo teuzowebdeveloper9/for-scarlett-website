@@ -2,7 +2,7 @@ function Hero() {
   const sparkles = Array.from({ length: 18 }, (_, index) => index)
 
   return (
-    <section className="hero-section" aria-labelledby="hero-title">
+    <section className="hero-section reveal-on-scroll" id="home" aria-labelledby="hero-title">
       <div className="hero-aura" aria-hidden="true" />
       <div className="hero-particles" aria-hidden="true">
         {sparkles.map((item) => (

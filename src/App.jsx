@@ -1,4 +1,5 @@
 import FloatingMusicPlayer from './components/FloatingMusicPlayer'
+import ExperienceLayer from './components/ExperienceLayer'
 import Hero from './components/Hero'
 import KarinaPhotoAlbum from './components/KarinaPhotoAlbum'
 import LoverPage from './components/LoverPage'
@@ -17,6 +18,7 @@ function App() {
   return (
     <main className="site-shell">
       <div className="scroll-glow-progress" aria-hidden="true" />
+      <ExperienceLayer />
       <FloatingMusicPlayer tracks={localMusicTracks} />
       <Hero />
       <MusicGallery songs={localMusicTracks} />

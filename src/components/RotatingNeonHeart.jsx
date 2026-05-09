@@ -22,7 +22,7 @@ function RotatingNeonHeart() {
   }
 
   return (
-    <section className="heart-section" aria-labelledby="heart-title">
+    <section className="heart-section reveal-on-scroll" id="heart" aria-labelledby="heart-title">
       <div className="section-heading">
         <p className="eyebrow">the last light</p>
         <h2 id="heart-title">My heart is yours, Karina</h2>
