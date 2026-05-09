@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react'
-import { FaChevronDown, FaChevronUp, FaLanguage } from 'react-icons/fa6'
+import { FaChevronDown, FaLanguage } from 'react-icons/fa6'
 
 const letterCopy = {
   en: `Hi my love,
@@ -157,15 +157,7 @@ function LoveEnvelope() {
                       ))}
                     </div>
                   </div>
-                  <div className="letter-scroll-rail" aria-hidden="false">
-                    <button
-                      className="letter-scroll-button"
-                      type="button"
-                      onClick={() => scrollByStep(-1)}
-                      aria-label="Scroll the letter up"
-                    >
-                      <FaChevronUp />
-                    </button>
+                  <div className="letter-scroll-rail">
                     <button
                       className="letter-scroll-button"
                       type="button"

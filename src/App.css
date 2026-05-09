@@ -1052,13 +1052,13 @@
 
 .letter-scroll-rail {
   position: absolute;
-  top: 0.85rem;
+  top: 50%;
   right: 0.85rem;
-  bottom: 0.85rem;
+  transform: translateY(-50%);
   z-index: 3;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
   align-items: end;
   pointer-events: none;
 }
@@ -1066,17 +1066,18 @@
 .letter-scroll-button {
   display: grid;
   place-items: center;
-  width: 3rem;
+  width: 3.45rem;
   aspect-ratio: 1;
   border: 1px solid rgba(255, 224, 236, 0.24);
   border-radius: 999px;
   background: linear-gradient(180deg, rgba(255, 171, 200, 0.2), rgba(8, 4, 7, 0.62));
   color: var(--color-cream);
   box-shadow:
-    0 0 1.2rem rgba(255, 95, 159, 0.22),
+    0 0 1.4rem rgba(255, 95, 159, 0.3),
     inset 0 1px 0 rgba(255, 255, 255, 0.08);
   cursor: pointer;
   pointer-events: auto;
+  animation: letter-bob 1.7s ease-in-out infinite;
 }
 
 .letter-scroll-button:hover {
@@ -1087,7 +1088,7 @@
 }
 
 .letter-scroll-button svg {
-  font-size: 1.05rem;
+  font-size: 1.2rem;
 }
 
 .letter-text-wrap {
@@ -1101,7 +1102,7 @@
   position: absolute;
   inset: 0;
   padding: clamp(1.2rem, 3.2vw, 2.1rem);
-  padding-right: 4rem;
+  padding-right: 5rem;
   padding-bottom: 2.4rem;
   overflow: auto;
   opacity: 0;
@@ -1113,6 +1114,16 @@
   scrollbar-color: rgba(255, 153, 187, 0.8) rgba(255, 255, 255, 0.18);
   overscroll-behavior: contain;
   -webkit-overflow-scrolling: touch;
+}
+
+@keyframes letter-bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(0.35rem);
+  }
 }
 
 .letter-text.is-active {
