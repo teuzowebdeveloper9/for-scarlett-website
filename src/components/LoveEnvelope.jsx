@@ -65,6 +65,8 @@ I adore you, Karina.`,
 function LoveEnvelope() {
   const [isOpen, setIsOpen] = useState(false)
   const [language, setLanguage] = useState('en')
+  const activeTitle = language === 'en' ? 'For Karina' : '致 Karina'
+  const activePrompt = language === 'en' ? 'Close the letter' : '收起这封信'
 
   return (
     <section className="letter-section" aria-labelledby="letter-title">
@@ -84,7 +86,7 @@ function LoveEnvelope() {
           onClick={() => setIsOpen((current) => !current)}
         >
           <span className="letter-card letter-card-closed">
-            <span className="letter-opening-text">{isOpen ? 'Close the letter' : 'Open the letter'}</span>
+            <span className="letter-opening-text">{isOpen ? activePrompt : 'Open the letter'}</span>
           </span>
           <span className="envelope-body" />
           <span className="envelope-left" />
@@ -92,12 +94,12 @@ function LoveEnvelope() {
           <span className="envelope-flap" />
         </button>
 
-        {isOpen && (
+        <div className={`letter-reveal ${isOpen ? 'is-open' : ''}`} aria-hidden={!isOpen}>
           <article className="handwritten-letter">
             <div className="handwritten-letter-top">
               <div>
-                <p className="eyebrow">handwritten</p>
-                <h3>{language === 'en' ? 'For Karina' : '致 Karina'}</h3>
+                <p className="eyebrow">our words</p>
+                <h3>{activeTitle}</h3>
               </div>
 
               <button
@@ -113,21 +115,23 @@ function LoveEnvelope() {
 
             <div className="letter-paper">
               <img src="/love-letter-base.png" alt="" aria-hidden="true" className="letter-artwork" />
-              <div className="letter-text-wrap">
-                <div className={`letter-text ${language === 'en' ? 'is-active' : ''}`}>
-                  {letterCopy.en.split('\n\n').map((paragraph) => (
-                    <p key={paragraph}>{paragraph}</p>
-                  ))}
-                </div>
-                <div className={`letter-text ${language === 'zh' ? 'is-active' : ''}`}>
-                  {letterCopy.zh.split('\n\n').map((paragraph) => (
-                    <p key={paragraph}>{paragraph}</p>
-                  ))}
+              <div className="letter-overlay">
+                <div className="letter-text-wrap">
+                  <div className={`letter-text ${language === 'en' ? 'is-active' : ''}`}>
+                    {letterCopy.en.split('\n\n').map((paragraph) => (
+                      <p key={paragraph}>{paragraph}</p>
+                    ))}
+                  </div>
+                  <div className={`letter-text ${language === 'zh' ? 'is-active' : ''}`}>
+                    {letterCopy.zh.split('\n\n').map((paragraph) => (
+                      <p key={paragraph}>{paragraph}</p>
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
           </article>
-        )}
+        </div>
       </div>
     </section>
   )
