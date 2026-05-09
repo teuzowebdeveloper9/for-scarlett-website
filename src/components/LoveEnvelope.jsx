@@ -116,16 +116,18 @@ function LoveEnvelope() {
             <div className="letter-paper">
               <img src="/love-letter-base.png" alt="" aria-hidden="true" className="letter-artwork" />
               <div className="letter-overlay">
-                <div className="letter-text-wrap">
-                  <div className={`letter-text ${language === 'en' ? 'is-active' : ''}`}>
-                    {letterCopy.en.split('\n\n').map((paragraph) => (
-                      <p key={paragraph}>{paragraph}</p>
-                    ))}
-                  </div>
-                  <div className={`letter-text ${language === 'zh' ? 'is-active' : ''}`}>
-                    {letterCopy.zh.split('\n\n').map((paragraph) => (
-                      <p key={paragraph}>{paragraph}</p>
-                    ))}
+                <div className="letter-copy-shell">
+                  <div className="letter-text-wrap">
+                    <div className={`letter-text ${language === 'en' ? 'is-active' : ''}`}>
+                      {letterCopy.en.split('\n\n').map((paragraph) => (
+                        <p key={paragraph}>{paragraph}</p>
+                      ))}
+                    </div>
+                    <div className={`letter-text ${language === 'zh' ? 'is-active' : ''}`}>
+                      {letterCopy.zh.split('\n\n').map((paragraph) => (
+                        <p key={paragraph}>{paragraph}</p>
+                      ))}
+                    </div>
                   </div>
                 </div>
               </div>

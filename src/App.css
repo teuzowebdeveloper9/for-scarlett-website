@@ -968,6 +968,7 @@
     0 1.5rem 3rem rgba(0, 0, 0, 0.4),
     0 0 2.5rem rgba(255, 95, 159, 0.12);
   backdrop-filter: blur(14px);
+  overflow: hidden;
 }
 
 .handwritten-letter-top {
@@ -1004,7 +1005,7 @@
 .letter-paper {
   position: relative;
   overflow: hidden;
-  min-height: clamp(36rem, 64vw, 44rem);
+  height: clamp(38rem, 72svh, 46rem);
   border-radius: var(--radius-xl);
   border: 1px solid rgba(255, 223, 233, 0.18);
   background: rgba(248, 238, 241, 0.92);
@@ -1025,20 +1026,40 @@
 .letter-overlay {
   position: relative;
   z-index: 1;
-  min-height: inherit;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(0, 0, 0, 0.28));
+  display: grid;
+  place-items: center;
+  height: 100%;
+  padding: clamp(1rem, 2.2vw, 1.4rem);
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.18), rgba(0, 0, 0, 0.5));
+}
+
+.letter-copy-shell {
+  position: relative;
+  width: min(100%, 33rem);
+  height: min(100%, 100%);
+  border: 1px solid rgba(255, 224, 236, 0.2);
+  border-radius: calc(var(--radius-xl) * 0.85);
+  background:
+    linear-gradient(180deg, rgba(10, 5, 8, 0.7), rgba(22, 8, 14, 0.42)),
+    rgba(0, 0, 0, 0.2);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.04),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 1.25rem 2.5rem rgba(0, 0, 0, 0.34);
+  backdrop-filter: blur(16px) saturate(140%);
 }
 
 .letter-text-wrap {
-  position: absolute;
+  position: relative;
   inset: 0;
-  padding: clamp(1.25rem, 3.8vw, 2.8rem);
+  height: 100%;
+  overflow: hidden;
 }
 
 .letter-text {
   position: absolute;
   inset: 0;
-  padding: clamp(1.25rem, 3.8vw, 2.8rem);
+  padding: clamp(1.2rem, 3.2vw, 2.1rem);
   overflow: auto;
   opacity: 0;
   transform: translateY(0.75rem);
@@ -1047,6 +1068,8 @@
     transform 260ms ease;
   scrollbar-width: thin;
   scrollbar-color: rgba(255, 153, 187, 0.8) rgba(255, 255, 255, 0.18);
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
 }
 
 .letter-text.is-active {
@@ -1070,20 +1093,33 @@
 
 .letter-text p {
   margin: 0 0 1rem;
-  color: #301122;
+  color: #fff0f5;
   font-family: var(--font-body);
   font-size: clamp(0.98rem, 1.4vw, 1.08rem);
   line-height: 1.95;
-  text-shadow: 0 0 0.45rem rgba(255, 255, 255, 0.55);
+  text-shadow:
+    0 0 0.35rem rgba(255, 95, 159, 0.25),
+    0 0 0.7rem rgba(0, 0, 0, 0.5);
 }
 
 .letter-text p:first-child {
   font-size: clamp(1.08rem, 1.8vw, 1.28rem);
-  color: #220b18;
+  color: #fff7fa;
 }
 
 .letter-text.is-active p:last-child {
   margin-bottom: 0;
+}
+
+.letter-copy-shell::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background:
+    radial-gradient(circle at 50% 16%, rgba(255, 170, 201, 0.18), transparent 34%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.1), transparent 28%);
+  pointer-events: none;
 }
 
 .heart-section {
