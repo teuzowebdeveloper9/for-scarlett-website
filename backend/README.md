@@ -17,6 +17,7 @@ PORT=3000
 FRONTEND_ORIGIN=http://localhost:5173
 SUPABASE_URL=https://your-project.supabase.co
 SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
+LOVER_PAGE_PASSWORD=your-private-lover-password
 MISTRAL_API_KEY=your-mistral-api-key
 MISTRAL_TRANSCRIPTION_MODEL=voxtral-mini-latest
 MISTRAL_TEXT_MODEL=mistral-large-latest
@@ -31,7 +32,11 @@ Use the Supabase service role key only on the backend or local scripts. Do not e
 
 ```http
 GET /musics/:musicId/lyrics
+POST /diary/entries
+GET /diary/entries
 ```
+
+`GET /diary/entries` requires the `X-Lover-Password` header. The backend compares it with `LOVER_PAGE_PASSWORD`.
 
 Response:
 
@@ -54,7 +59,9 @@ Response:
 
 Run the SQL in `supabase/schema.sql` in the Supabase SQL editor.
 
-The table is `music_lyrics` and stores:
+The SQL creates `music_lyrics` for lyrics and `karina_diary_entries` for the private diary.
+
+`music_lyrics` stores:
 
 - `id`
 - `music_id`
@@ -63,6 +70,16 @@ The table is `music_lyrics` and stores:
 - `lyrics_json`
 - `created_at`
 - `updated_at`
+
+`karina_diary_entries` stores:
+
+- `id`
+- `mood`
+- `title`
+- `description`
+- `author_timezone`
+- `reader_timezone`
+- `created_at`
 
 ## Generate lyrics JSON from local audio
 
@@ -90,3 +107,9 @@ If Supabase or the Mistral API has a transient network failure, the script retri
 If a `musicId` already exists in Supabase, the script skips that file instead of generating it again.
 
 The transcription logic is isolated in `scripts/generate-lyrics.ts` inside `transcribeAudioWithMistral()`, so you can replace it if you choose a different transcriber later.
+
+## Vercel deploy
+
+Deploy this folder as its own Vercel project with Root Directory set to `backend`.
+
+The Vercel entrypoint is `api/index.ts`, which adapts the Nest app to a serverless function. Set the same backend env vars in Vercel, especially `FRONTEND_ORIGIN`, `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`, and `LOVER_PAGE_PASSWORD`.
