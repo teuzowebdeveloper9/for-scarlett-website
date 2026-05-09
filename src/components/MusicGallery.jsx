@@ -5,8 +5,8 @@ function MusicGallery({ songs }) {
         <p className="eyebrow">soundtrack</p>
         <h2 id="music-title">Songs that feel like you</h2>
         <p className="heading-chinese">像你一样温柔的歌</p>
-        <p>Cards ready for covers, photos, and tiny stories from each moment.</p>
-        <p className="copy-chinese">这里可以放封面、照片和每一段回忆的小故事。</p>
+        <p>Local songs are loaded from <code>src/musics-karina-site</code>.</p>
+        <p className="copy-chinese">把歌曲放进这个文件夹，播放器会自动找到它们。</p>
       </div>
 
       <div className="music-grid">

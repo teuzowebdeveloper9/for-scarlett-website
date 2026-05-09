@@ -325,10 +325,17 @@
   right: var(--space-5);
   z-index: 1000;
   display: grid;
-  grid-template-columns: 3.7rem minmax(9rem, 1fr) 2.5rem 2.5rem;
+  grid-template-columns: 3.8rem minmax(0, 1fr) auto;
+  grid-template-areas:
+    'cover details minimize'
+    'cover controls controls'
+    'progress progress progress'
+    'equalizer equalizer equalizer'
+    'lyrics lyrics lyrics'
+    'time time time';
   gap: var(--space-3);
   align-items: center;
-  width: min(22.5rem, calc(100vw - 2rem));
+  width: min(28rem, calc(100vw - 2rem));
   padding: var(--space-3);
   border: 1px solid rgba(255, 205, 220, 0.24);
   border-radius: var(--radius-xl);
@@ -351,8 +358,9 @@
 }
 
 .floating-player.is-minimized {
-  grid-template-columns: 3.25rem 2.35rem 2.35rem;
-  width: 10.4rem;
+  grid-template-columns: 3.2rem 2.35rem 2.35rem;
+  grid-template-areas: 'cover controls minimize';
+  width: 10rem;
   border-radius: 999px;
 }
 
@@ -365,10 +373,14 @@
 }
 
 .player-cover {
+  grid-area: cover;
   width: 3.7rem;
   aspect-ratio: 1;
   border-radius: 1rem;
-  box-shadow: 0 0 1.8rem rgba(255, 135, 171, 0.25);
+  box-shadow:
+    0 0 var(--beat-cover-glow, 1.8rem) rgba(255, 135, 171, 0.36),
+    0 0 3.2rem rgba(255, 95, 159, 0.16);
+  transition: box-shadow 120ms ease;
 }
 
 .player-cover span,
@@ -380,7 +392,17 @@
   filter: drop-shadow(0 0 1.2rem rgba(255, 198, 215, 0.85));
 }
 
+.player-cover span {
+  transform: scale(var(--beat-scale, 1));
+  transform-origin: center;
+  transition: transform 80ms linear, filter 80ms linear;
+  filter:
+    drop-shadow(0 0 var(--beat-shadow-size, 1.1rem) rgba(255, 198, 215, 0.92))
+    drop-shadow(0 0 2.4rem rgba(255, 95, 159, 0.56));
+}
+
 .player-details {
+  grid-area: details;
   min-width: 0;
   text-align: left;
 }
@@ -436,6 +458,108 @@
   border-color: rgba(255, 224, 235, 0.68);
   box-shadow: 0 0 1.35rem rgba(255, 153, 187, 0.3);
   transform: scale(1.05);
+}
+
+.player-controls {
+  grid-area: controls;
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-2);
+}
+
+.player-controls .icon-button {
+  width: 2.25rem;
+}
+
+.player-progress {
+  grid-area: progress;
+  position: relative;
+  overflow: hidden;
+  height: 0.32rem;
+  border-radius: 999px;
+  background: rgba(255, 193, 214, 0.12);
+}
+
+.player-progress span {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: var(--track-progress, 0%);
+  border-radius: inherit;
+  background: linear-gradient(90deg, rgba(255, 241, 246, 0.96), rgba(255, 95, 159, 0.72));
+  box-shadow: 0 0 1rem rgba(255, 95, 159, 0.42);
+  transition: width 180ms linear;
+}
+
+.equalizer {
+  grid-area: equalizer;
+  display: flex;
+  align-items: end;
+  height: 2.2rem;
+  gap: 0.32rem;
+  padding: 0.1rem 0;
+}
+
+.equalizer span {
+  flex: 1;
+  min-width: 0.18rem;
+  border-radius: 999px 999px 0.25rem 0.25rem;
+  background: linear-gradient(180deg, #fff4f8, #ffc1d6 42%, rgba(255, 95, 159, 0.42));
+  transition: height 90ms linear, opacity 90ms linear;
+}
+
+.lyrics-panel {
+  grid-area: lyrics;
+  min-height: 4.6rem;
+  padding: var(--space-3);
+  border: 1px solid rgba(255, 205, 220, 0.16);
+  border-radius: var(--radius-md);
+  background:
+    linear-gradient(180deg, rgba(255, 193, 214, 0.07), rgba(255, 193, 214, 0.025)),
+    rgba(255, 255, 255, 0.018);
+  text-align: center;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.035);
+}
+
+.lyrics-panel p {
+  transition: opacity 220ms ease, transform 220ms ease;
+}
+
+.lyrics-english {
+  margin: 0;
+  color: var(--color-cream);
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  line-height: 1.25;
+}
+
+.lyrics-chinese {
+  margin: var(--space-2) 0 0;
+  color: rgba(255, 217, 229, 0.8);
+  font-family: var(--font-chinese);
+  font-size: 0.92rem;
+  line-height: 1.45;
+}
+
+.player-time {
+  grid-area: time;
+  display: flex;
+  justify-content: space-between;
+  color: rgba(255, 217, 229, 0.62);
+  font-size: 0.72rem;
+}
+
+.minimize-button {
+  grid-area: minimize;
+  justify-self: end;
+}
+
+.floating-player.is-minimized .player-cover {
+  width: 3.2rem;
+  border-radius: 999px;
+}
+
+.floating-player.is-minimized .play-button {
+  grid-area: controls;
 }
 
 .section-heading {
@@ -902,7 +1026,7 @@
   .floating-player {
     top: var(--space-3);
     right: var(--space-3);
-    grid-template-columns: 3.2rem minmax(0, 1fr) 2.25rem 2.25rem;
+    grid-template-columns: 3.2rem minmax(0, 1fr) auto;
     width: calc(100vw - 1.5rem);
     border-radius: var(--radius-lg);
   }

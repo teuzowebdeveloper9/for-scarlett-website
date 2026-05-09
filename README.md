@@ -1,16 +1,37 @@
-# React + Vite
+# For Karina Baby Website
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Romantic Vite + React website with a local music player, neon heart visuals, and synchronized lyrics support.
 
-Currently, two official plugins are available:
+## Frontend setup
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+```bash
+npm install
+cp .env.example .env
+npm run dev
+```
 
-## React Compiler
+## Local songs
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Add authorized local audio files here:
 
-## Expanding the ESLint configuration
+```text
+src/musics-karina-site
+```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+The player discovers `.mp3`, `.m4a`, `.wav`, and `.ogg` files automatically with `import.meta.glob`.
+
+## Lyrics API
+
+Set `VITE_API_URL` to the NestJS backend URL. Default:
+
+```env
+VITE_API_URL=http://localhost:3000
+```
+
+The player calls:
+
+```text
+GET /musics/:musicId/lyrics
+```
+
+If no lyrics JSON exists yet, the player still works and shows a placeholder.
