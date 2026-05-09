@@ -1,5 +1,5 @@
 function Hero() {
-  const sparkles = Array.from({ length: 18 }, (_, index) => index)
+  const sparkles = Array.from({ length: 28 }, (_, index) => index)
 
   return (
     <section className="hero-section reveal-on-scroll" id="home" aria-labelledby="hero-title">
