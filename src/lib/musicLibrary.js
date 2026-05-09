@@ -23,6 +23,9 @@ const poeticChineseTitles = [
 const itsYouDescription =
   'I chose this song because I choose you every day. Even with distance, doubts, and hard days, my heart still comes back to you.'
 const itsYouDescriptionChinese = '我选择这首歌，是因为我每天都会选择你。我希望自己永远不会后悔，因为我知道你不会让我失望。'
+const carsOutsideDescription =
+  "This song reminds me of you because distance is the hardest part of loving you. Every time I hear it, I think about how much I wish I could stop leaving, stay close, and be with you for real."
+const carsOutsideDescriptionChinese = '这首歌让我想起你，因为距离是爱你最难的部分。每次听到它，我都会想，如果我可以不离开，可以留在你身边就好了。'
 
 function slugify(value) {
   return value
@@ -53,6 +56,18 @@ function isItsYouTrack(title, artist, musicId) {
   )
 }
 
+function isCarsOutsideTrack(title, artist, musicId) {
+  const normalizedTitle = title.toLowerCase()
+  const normalizedArtist = artist.toLowerCase()
+
+  return (
+    musicId.includes('james-arthur-car-s-outside') ||
+    normalizedArtist.includes('james arthur') ||
+    normalizedTitle.includes("car's outside") ||
+    normalizedTitle.includes('cars outside')
+  )
+}
+
 function parseMusicFile(path, source, index) {
   const fileName = decodeURIComponent(path.split('/').pop() ?? `track-${index + 1}`)
   const nameWithoutExtension = fileName.replace(/\.[^.]+$/, '')
@@ -62,12 +77,19 @@ function parseMusicFile(path, source, index) {
   const title = parts.length >= 3 ? parts[1] : parts[0] || `Track ${index + 1}`
   const musicId = slugify(nameWithoutExtension)
   const isItsYou = isItsYouTrack(title, artist, musicId)
-  const description = isItsYou ? itsYouDescription : romanticDescriptions[index % romanticDescriptions.length]
+  const isCarsOutside = isCarsOutsideTrack(title, artist, musicId)
+  const description = isItsYou
+    ? itsYouDescription
+    : isCarsOutside
+      ? carsOutsideDescription
+      : romanticDescriptions[index % romanticDescriptions.length]
   const descriptionChinese = isItsYou
     ? itsYouDescriptionChinese
-    : index % 2 === 0
-      ? '像深夜里的心跳，安静又温柔。'
-      : '像一段安静停留在心里的温柔，甜而克制。'
+    : isCarsOutside
+      ? carsOutsideDescriptionChinese
+      : index % 2 === 0
+        ? '像深夜里的心跳，安静又温柔。'
+        : '像一段安静停留在心里的温柔，甜而克制。'
 
   return {
     musicId,
