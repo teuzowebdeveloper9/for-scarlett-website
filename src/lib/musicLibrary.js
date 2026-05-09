@@ -20,6 +20,10 @@ const poeticChineseTitles = [
   '专属柔光',
 ]
 
+const itsYouDescription =
+  'I chose this song because I choose you every day. I hope I never regret that, and I know you will not disappoint me.'
+const itsYouDescriptionChinese = '我选择这首歌，是因为我每天都会选择你。我希望自己永远不会后悔，因为我知道你不会让我失望。'
+
 function slugify(value) {
   return value
     .normalize('NFD')
@@ -37,6 +41,18 @@ function cleanName(value) {
     .trim()
 }
 
+function isItsYouTrack(title, artist, musicId) {
+  const normalizedTitle = title.toLowerCase()
+  const normalizedArtist = artist.toLowerCase()
+
+  return (
+    musicId.includes('ali-gatie') ||
+    normalizedArtist.includes('ali gatie') ||
+    normalizedTitle.includes("it's you") ||
+    normalizedTitle.includes('its you')
+  )
+}
+
 function parseMusicFile(path, source, index) {
   const fileName = decodeURIComponent(path.split('/').pop() ?? `track-${index + 1}`)
   const nameWithoutExtension = fileName.replace(/\.[^.]+$/, '')
@@ -44,14 +60,17 @@ function parseMusicFile(path, source, index) {
 
   const artist = parts.length >= 3 ? parts[0] : parts[1] || 'Unknown artist'
   const title = parts.length >= 3 ? parts[1] : parts[0] || `Track ${index + 1}`
-  const description = romanticDescriptions[index % romanticDescriptions.length]
-  const descriptionChinese =
-    index % 2 === 0
+  const musicId = slugify(nameWithoutExtension)
+  const isItsYou = isItsYouTrack(title, artist, musicId)
+  const description = isItsYou ? itsYouDescription : romanticDescriptions[index % romanticDescriptions.length]
+  const descriptionChinese = isItsYou
+    ? itsYouDescriptionChinese
+    : index % 2 === 0
       ? '像深夜里的心跳，安静又温柔。'
-      : '像一段一直回来的回忆，甜而克制。'
+      : '像一段安静停留在心里的温柔，甜而克制。'
 
   return {
-    musicId: slugify(nameWithoutExtension),
+    musicId,
     title,
     titleChinese: poeticChineseTitles[index % poeticChineseTitles.length],
     artist,
