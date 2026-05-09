@@ -87,10 +87,10 @@ function LoveEnvelope() {
   return (
     <section className="letter-section" aria-labelledby="letter-title">
       <div className="section-heading">
-        <p className="eyebrow">our letter</p>
-        <h2 id="letter-title">A letter made with my heart</h2>
+        <p className="eyebrow">the words I keep for you</p>
+        <h2 id="letter-title">A letter from the softest part of me</h2>
         <p className="heading-chinese">一封用心写给你的信</p>
-        <p>A little page for everything I feel for you.</p>
+        <p>A little page for the feelings I cannot keep only inside my chest.</p>
         <p className="copy-chinese">轻轻打开，就能看到我想说的话。</p>
       </div>
 

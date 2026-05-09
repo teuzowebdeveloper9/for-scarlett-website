@@ -24,9 +24,9 @@ function RotatingNeonHeart() {
   return (
     <section className="heart-section" aria-labelledby="heart-title">
       <div className="section-heading">
-        <p className="eyebrow">glowing finale</p>
-        <h2 id="heart-title">I love you, Karina</h2>
-        <p className="heading-chinese">送给 Karina 的霓虹心</p>
+        <p className="eyebrow">the last light</p>
+        <h2 id="heart-title">My heart is yours, Karina</h2>
+        <p className="heading-chinese">我的心属于你，Karina</p>
         <button className="karina-burst-chip" type="button" onClick={triggerBurst} aria-label="Release hearts for Karina">
           Karina
         </button>

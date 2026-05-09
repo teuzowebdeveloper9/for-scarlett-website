@@ -25,7 +25,7 @@ function LoverPage() {
 
     if (!password.trim()) {
       setStatus('error')
-      setMessage('Type the private password first.')
+      setMessage('Type the private password first, my love.')
       return
     }
 
@@ -54,9 +54,9 @@ function LoverPage() {
       <section className="lover-hero" aria-labelledby="lover-title">
         <div>
           <p className="eyebrow">private morning page</p>
-          <h1 id="lover-title">What Karina wrote while I was sleeping</h1>
+          <h1 id="lover-title">The words she left for my morning</h1>
           <p>
-            A quiet place for the notes she leaves from Kazakhstan, waiting for me in Brazil when I wake up.
+            A private place for the pieces of her heart that travel from Kazakhstan to Brazil while I sleep.
           </p>
         </div>
 
@@ -66,8 +66,8 @@ function LoverPage() {
               <FaLock />
             </span>
             <div>
-              <strong>Private access</strong>
-              <p>The password is checked by the backend.</p>
+              <strong>Only for us</strong>
+              <p>A small lock for the messages I do not want the world to touch.</p>
             </div>
           </div>
 
@@ -77,12 +77,12 @@ function LoverPage() {
               type="password"
               value={password}
               onChange={(event) => setPassword(event.target.value)}
-              placeholder="Enter the lover password"
+              placeholder="Enter our private password"
             />
           </label>
 
           <button type="submit" disabled={status === 'loading'}>
-            {status === 'loading' ? 'Opening' : 'Open diary'}
+            {status === 'loading' ? 'Opening' : 'Open her letters'}
           </button>
 
           {message && <p className="lover-auth-message">{message}</p>}
@@ -93,7 +93,7 @@ function LoverPage() {
         <div className="lover-list-top">
           <div>
             <p className="eyebrow">saved notes</p>
-            <h2>Morning inbox</h2>
+            <h2>My morning with her</h2>
           </div>
           {status === 'ready' && (
             <button type="button" className="lover-refresh-button" onClick={loadEntries}>
@@ -106,14 +106,14 @@ function LoverPage() {
         {status !== 'ready' && (
           <div className="lover-empty-state">
             <FaMoon aria-hidden="true" />
-            <p>Unlock the page to see what she wrote.</p>
+            <p>Unlock the page to read what her heart left here.</p>
           </div>
         )}
 
         {status === 'ready' && entries.length === 0 && (
           <div className="lover-empty-state">
             <FaMoon aria-hidden="true" />
-            <p>No diary notes yet.</p>
+            <p>No love notes yet. I will wait for her words.</p>
           </div>
         )}
 

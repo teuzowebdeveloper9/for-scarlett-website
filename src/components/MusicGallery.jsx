@@ -9,10 +9,10 @@ function MusicGallery({ songs }) {
     <section className="music-section" aria-labelledby="music-title">
       <div className="section-heading">
         <p className="eyebrow">soundtrack</p>
-        <h2 id="music-title">Songs that feel like you</h2>
-        <p className="heading-chinese">像你一样温柔的歌</p>
-        <p>Little songs that carry the feeling of us.</p>
-        <p className="copy-chinese">每一首都像一段只属于你的小心事。</p>
+        <h2 id="music-title">The songs I would play for you</h2>
+        <p className="heading-chinese">我想放给你听的歌</p>
+        <p>Every track is a small way of holding your hand from far away.</p>
+        <p className="copy-chinese">每一首歌都像我隔着距离轻轻牵住你的手。</p>
       </div>
 
       <div className="music-grid">

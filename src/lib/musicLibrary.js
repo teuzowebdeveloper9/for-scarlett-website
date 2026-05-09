@@ -6,11 +6,11 @@ const musicFiles = import.meta.glob('../musics-karina-site/*.{mp3,m4a,wav,ogg}',
 
 const coverClasses = ['cover-rose', 'cover-blush', 'cover-night']
 const romanticDescriptions = [
-  'Feels like a late-night promise wrapped in soft pink light.',
-  'Feels like a memory that lingers softly in the air.',
-  'Holds the kind of longing that turns into a smile.',
-  'Moves like a heartbeat when someone special is near.',
-  'Feels tender, warm, and impossible to forget.',
+  'This song feels like me missing you in the quiet part of the night.',
+  'This one makes me think about your voice and the way I wish you were closer.',
+  'A song for the distance between us, and for the love that keeps crossing it.',
+  'This feels like my heartbeat when your name appears on my screen.',
+  'A soft reminder that even far away, you are still the closest thing to my heart.',
 ]
 const poeticChineseTitles = [
   '温柔心跳',
@@ -21,7 +21,7 @@ const poeticChineseTitles = [
 ]
 
 const itsYouDescription =
-  'I chose this song because I choose you every day. I hope I never regret that, and I know you will not disappoint me.'
+  'I chose this song because I choose you every day. Even with distance, doubts, and hard days, my heart still comes back to you.'
 const itsYouDescriptionChinese = '我选择这首歌，是因为我每天都会选择你。我希望自己永远不会后悔，因为我知道你不会让我失望。'
 
 function slugify(value) {

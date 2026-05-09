@@ -17,14 +17,14 @@ function Hero() {
       </div>
 
       <div className="hero-content">
-        <p className="eyebrow">made with care</p>
+        <p className="eyebrow">made from my heart</p>
         <h1 id="hero-title">For Karina</h1>
         <p className="title-chinese">献给 Karina</p>
         <p className="hero-subtitle">
-          A black and baby-pink place for our songs, memories, and a letter made only for you.
+          A little universe I made for you, where every song, photo, and word keeps saying what my heart feels.
         </p>
         <p className="hero-subtitle subtitle-chinese">
-          一个黑色与粉色的小世界，收藏我们的歌、回忆和只写给你的信。
+          这是我为你做的小宇宙，每一首歌、每一张照片、每一句话都在说我想你。
         </p>
       </div>
 

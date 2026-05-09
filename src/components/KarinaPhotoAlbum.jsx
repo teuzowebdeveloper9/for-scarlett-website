@@ -6,19 +6,19 @@ const albumPhotos = [
     src: '/karinaaaa.jpeg',
     title: 'So chic',
     mood: 'I love this about her',
-    caption: 'She looks so chic in this photo. I love this about her.',
+    caption: 'You look so chic here. I love the way you can turn one photo into something I keep thinking about.',
   },
   {
     src: '/karinaaaaajnjer.jpeg',
     title: 'My lady',
     mood: 'totally in love',
-    caption: 'This photo makes me totally fall in love. She is my lady.',
+    caption: 'This photo makes me fall for you all over again. You are my lady, and I love that.',
   },
   {
     src: '/karinaklerjegrkg.jpeg',
     title: 'So stylish',
     mood: 'this style is so her',
-    caption: 'She looks so stylish in this photo. This style fits her so much.',
+    caption: 'You look so stylish here. This outfit feels so much like you, and I adore that energy.',
   },
   {
     src: '/685023120_970378345743215_5606483074547247357_n.jpg',
@@ -55,9 +55,9 @@ function KarinaPhotoAlbum() {
       <div className="album-shell">
         <div className="album-copy">
           <p className="eyebrow">photo album</p>
-          <h2 id="album-title">A little gallery of Karina</h2>
+          <h2 id="album-title">Photos that make me miss you more</h2>
           <p className="album-intro">
-            Four small frames, one by one, like the site is keeping its favorite memories close.
+            Four little moments of you, saved here because my heart does not know how to ignore them.
           </p>
 
           <div className="album-meta" aria-label="Current album photo">
