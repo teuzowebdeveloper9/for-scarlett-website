@@ -1036,7 +1036,8 @@
 .letter-copy-shell {
   position: relative;
   width: min(100%, 33rem);
-  height: min(100%, 100%);
+  height: 100%;
+  min-height: 100%;
   border: 1px solid rgba(255, 224, 236, 0.2);
   border-radius: calc(var(--radius-xl) * 0.85);
   background:
@@ -1049,14 +1050,23 @@
   backdrop-filter: blur(16px) saturate(140%);
 }
 
-.letter-scroll-button {
+.letter-scroll-rail {
   position: absolute;
-  right: 0.95rem;
-  bottom: 3.75rem;
-  z-index: 2;
+  top: 0.85rem;
+  right: 0.85rem;
+  bottom: 0.85rem;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: end;
+  pointer-events: none;
+}
+
+.letter-scroll-button {
   display: grid;
   place-items: center;
-  width: 2.65rem;
+  width: 3rem;
   aspect-ratio: 1;
   border: 1px solid rgba(255, 224, 236, 0.24);
   border-radius: 999px;
@@ -1066,6 +1076,7 @@
     0 0 1.2rem rgba(255, 95, 159, 0.22),
     inset 0 1px 0 rgba(255, 255, 255, 0.08);
   cursor: pointer;
+  pointer-events: auto;
 }
 
 .letter-scroll-button:hover {
@@ -1073,10 +1084,6 @@
   box-shadow:
     0 0 1.6rem rgba(255, 95, 159, 0.3),
     inset 0 1px 0 rgba(255, 255, 255, 0.12);
-}
-
-.letter-scroll-button-down {
-  bottom: 0.95rem;
 }
 
 .letter-scroll-button svg {
@@ -1094,7 +1101,8 @@
   position: absolute;
   inset: 0;
   padding: clamp(1.2rem, 3.2vw, 2.1rem);
-  padding-bottom: 4rem;
+  padding-right: 4rem;
+  padding-bottom: 2.4rem;
   overflow: auto;
   opacity: 0;
   transform: translateY(0.75rem);

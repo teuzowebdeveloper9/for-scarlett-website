@@ -76,8 +76,10 @@ function LoveEnvelope() {
       return
     }
 
-    activePane.scrollBy({
-      top: direction * Math.max(220, activePane.clientHeight * 0.45),
+    const nextTop = activePane.scrollTop + direction * Math.max(220, activePane.clientHeight * 0.45)
+
+    activePane.scrollTo({
+      top: Math.max(0, nextTop),
       behavior: 'smooth',
     })
   }
@@ -155,22 +157,24 @@ function LoveEnvelope() {
                       ))}
                     </div>
                   </div>
-                  <button
-                    className="letter-scroll-button"
-                    type="button"
-                    onClick={() => scrollByStep(-1)}
-                    aria-label="Scroll the letter up"
-                  >
-                    <FaChevronUp />
-                  </button>
-                  <button
-                    className="letter-scroll-button letter-scroll-button-down"
-                    type="button"
-                    onClick={() => scrollByStep(1)}
-                    aria-label="Scroll the letter down"
-                  >
-                    <FaChevronDown />
-                  </button>
+                  <div className="letter-scroll-rail" aria-hidden="false">
+                    <button
+                      className="letter-scroll-button"
+                      type="button"
+                      onClick={() => scrollByStep(-1)}
+                      aria-label="Scroll the letter up"
+                    >
+                      <FaChevronUp />
+                    </button>
+                    <button
+                      className="letter-scroll-button"
+                      type="button"
+                      onClick={() => scrollByStep(1)}
+                      aria-label="Scroll the letter down"
+                    >
+                      <FaChevronDown />
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
