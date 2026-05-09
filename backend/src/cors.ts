@@ -1,5 +1,12 @@
+function normalizeOrigin(value: string): string {
+  return value.trim().replace(/\/+$/, '');
+}
+
 export function buildCorsOptions() {
-  const frontendOrigin = process.env.FRONTEND_ORIGIN;
+  const frontendOrigins = (process.env.FRONTEND_ORIGIN ?? '')
+    .split(',')
+    .map((origin) => normalizeOrigin(origin))
+    .filter(Boolean);
 
   return {
     origin: (origin: string | undefined, callback: (error: Error | null, allow?: boolean) => void) => {
@@ -8,10 +15,11 @@ export function buildCorsOptions() {
         return;
       }
 
+      const normalizedOrigin = normalizeOrigin(origin);
       const isAllowedOrigin =
-        (frontendOrigin ? origin === frontendOrigin : false) ||
-        /^http:\/\/localhost:\d+$/.test(origin) ||
-        /^http:\/\/127\.0\.0\.1:\d+$/.test(origin);
+        frontendOrigins.includes(normalizedOrigin) ||
+        /^http:\/\/localhost:\d+$/.test(normalizedOrigin) ||
+        /^http:\/\/127\.0\.0\.1:\d+$/.test(normalizedOrigin);
 
       callback(null, isAllowedOrigin);
     },

@@ -1,4 +1,4 @@
-const API_BASE_URL = import.meta.env.VITE_API_URL ?? 'http://localhost:3000'
+const API_BASE_URL = (import.meta.env.VITE_API_URL ?? 'http://localhost:3000').replace(/\/+$/, '')
 
 export async function fetchLyricsByMusicId(musicId, signal) {
   const response = await fetch(`${API_BASE_URL}/musics/${musicId}/lyrics`, { signal })
