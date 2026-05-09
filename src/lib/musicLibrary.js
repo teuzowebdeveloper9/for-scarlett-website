@@ -5,6 +5,20 @@ const musicFiles = import.meta.glob('../musics-karina-site/*.{mp3,m4a,wav,ogg}',
 })
 
 const coverClasses = ['cover-rose', 'cover-blush', 'cover-night']
+const romanticDescriptions = [
+  'Feels like a late-night promise wrapped in soft pink light.',
+  'Sounds like a memory that keeps finding its way back to you.',
+  'Holds the kind of longing that turns into a smile.',
+  'Moves like a heartbeat when someone special is near.',
+  'Feels tender, warm, and impossible to forget.',
+]
+const poeticChineseTitles = [
+  '温柔心跳',
+  '夜色回信',
+  '甜蜜回声',
+  '想你时刻',
+  '专属柔光',
+]
 
 function slugify(value) {
   return value
@@ -30,15 +44,20 @@ function parseMusicFile(path, source, index) {
 
   const artist = parts.length >= 3 ? parts[0] : parts[1] || 'Unknown artist'
   const title = parts.length >= 3 ? parts[1] : parts[0] || `Track ${index + 1}`
+  const description = romanticDescriptions[index % romanticDescriptions.length]
+  const descriptionChinese =
+    index % 2 === 0
+      ? '像深夜里的心跳，安静又温柔。'
+      : '像一段一直回来的回忆，甜而克制。'
 
   return {
     musicId: slugify(nameWithoutExtension),
     title,
-    titleChinese: '等待中文标题',
+    titleChinese: poeticChineseTitles[index % poeticChineseTitles.length],
     artist,
     artistChinese: '艺术家',
-    description: '[short description here]',
-    descriptionChinese: '[简短描述写在这里]',
+    description,
+    descriptionChinese,
     coverClass: coverClasses[index % coverClasses.length],
     fileName,
     src: source,

@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { FaBackwardStep, FaPause, FaPlay, FaForwardStep, FaChevronDown } from 'react-icons/fa6'
 import { fetchLyricsByMusicId } from '../services/lyricsApi'
 
 const emptyBars = Array.from({ length: 12 }, () => 0.18)
@@ -23,7 +24,44 @@ function findActiveLyric(lyrics, currentTime) {
   }, lyrics[0])
 }
 
+function isOpeningTrack(track) {
+  const title = (track.title ?? '').toLowerCase()
+  const artist = (track.artist ?? '').toLowerCase()
+  const musicId = (track.musicId ?? '').toLowerCase()
+
+  return (
+    musicId.includes('ali-gatie') ||
+    artist.includes('ali gatie') ||
+    title.includes("it's you") ||
+    title.includes('its you')
+  )
+}
+
+function shuffleTracks(list) {
+  const output = [...list]
+
+  for (let index = output.length - 1; index > 0; index -= 1) {
+    const randomIndex = Math.floor(Math.random() * (index + 1))
+    ;[output[index], output[randomIndex]] = [output[randomIndex], output[index]]
+  }
+
+  return output
+}
+
+function buildSessionQueue(tracks) {
+  if (!tracks.length) {
+    return []
+  }
+
+  const openingIndex = tracks.findIndex(isOpeningTrack)
+  const openingTrack = openingIndex >= 0 ? tracks[openingIndex] : tracks[0]
+  const remainingTracks = tracks.filter((_, index) => index !== (openingIndex >= 0 ? openingIndex : 0))
+
+  return [openingTrack, ...shuffleTracks(remainingTracks)]
+}
+
 function FloatingMusicPlayer({ tracks }) {
+  const [trackQueue, setTrackQueue] = useState(() => buildSessionQueue(tracks))
   const [trackIndex, setTrackIndex] = useState(0)
   const [isPlaying, setIsPlaying] = useState(false)
   const [isMinimized, setIsMinimized] = useState(false)
@@ -33,7 +71,6 @@ function FloatingMusicPlayer({ tracks }) {
   const [duration, setDuration] = useState(0)
   const [lyricsData, setLyricsData] = useState(null)
   const [lyricsStatus, setLyricsStatus] = useState('idle')
-  const [shouldResumeAfterTrackChange, setShouldResumeAfterTrackChange] = useState(false)
 
   const audioRef = useRef(null)
   const audioContextRef = useRef(null)
@@ -41,8 +78,10 @@ function FloatingMusicPlayer({ tracks }) {
   const analyserRef = useRef(null)
   const animationFrameRef = useRef(null)
   const smoothedBeatRef = useRef(0)
+  const isPlayingRef = useRef(false)
+  const shouldAutoplayRef = useRef(false)
 
-  const currentTrack = tracks[trackIndex]
+  const currentTrack = trackQueue[trackIndex] ?? trackQueue[0] ?? tracks[0]
   const lyrics = lyricsData?.lyrics ?? []
   const activeLyric = useMemo(() => findActiveLyric(lyrics, currentTime), [lyrics, currentTime])
   const fallbackLyric =
@@ -58,6 +97,33 @@ function FloatingMusicPlayer({ tracks }) {
       animationFrameRef.current = null
     }
   }, [])
+
+  useEffect(() => {
+    setTrackQueue(buildSessionQueue(tracks))
+    setTrackIndex(0)
+    shouldAutoplayRef.current = false
+  }, [tracks])
+
+  useEffect(() => {
+    const handlePlayTrack = (event) => {
+      const requestedMusicId = event.detail?.musicId
+      const nextIndex = trackQueue.findIndex((track) => track.musicId === requestedMusicId)
+
+      if (nextIndex < 0) {
+        return
+      }
+
+      shouldAutoplayRef.current = true
+      setTrackIndex(nextIndex)
+    }
+
+    window.addEventListener('karina:play-track', handlePlayTrack)
+    return () => window.removeEventListener('karina:play-track', handlePlayTrack)
+  }, [trackQueue])
+
+  useEffect(() => {
+    isPlayingRef.current = isPlaying
+  }, [isPlaying])
 
   const runAnalyser = useCallback(() => {
     const analyser = analyserRef.current
@@ -144,21 +210,48 @@ function FloatingMusicPlayer({ tracks }) {
       return
     }
 
-    await playCurrentTrack()
+    try {
+      await playCurrentTrack()
+    } catch {
+      setIsPlaying(false)
+    }
   }
 
   const moveTrack = (direction) => {
-    setShouldResumeAfterTrackChange(isPlaying)
+    if (!trackQueue.length) {
+      return
+    }
+
+    shouldAutoplayRef.current = isPlayingRef.current
     setTrackIndex((current) => {
       const nextIndex = current + direction
+
       if (nextIndex < 0) {
-        return tracks.length - 1
+        return trackQueue.length - 1
       }
-      if (nextIndex >= tracks.length) {
+
+      if (nextIndex >= trackQueue.length) {
         return 0
       }
+
       return nextIndex
     })
+  }
+
+  const seekToPosition = (event) => {
+    const audio = audioRef.current
+    const progress = event.currentTarget
+
+    if (!audio || !duration) {
+      return
+    }
+
+    const bounds = progress.getBoundingClientRect()
+    const ratio = Math.min(1, Math.max(0, (event.clientX - bounds.left) / bounds.width))
+    const nextTime = ratio * duration
+
+    audio.currentTime = nextTime
+    setCurrentTime(nextTime)
   }
 
   useEffect(() => {
@@ -198,10 +291,13 @@ function FloatingMusicPlayer({ tracks }) {
     setBars(emptyBars)
     audio.load()
 
-    if (shouldResumeAfterTrackChange) {
-      playCurrentTrack().finally(() => setShouldResumeAfterTrackChange(false))
+    if (shouldAutoplayRef.current) {
+      shouldAutoplayRef.current = false
+      playCurrentTrack().catch(() => {
+        setIsPlaying(false)
+      })
     }
-  }, [currentTrack, playCurrentTrack, shouldResumeAfterTrackChange, stopAnalyser])
+  }, [currentTrack, playCurrentTrack, stopAnalyser])
 
   useEffect(() => {
     return () => stopAnalyser()
@@ -250,7 +346,7 @@ function FloatingMusicPlayer({ tracks }) {
 
           <div className="player-controls">
             <button className="icon-button" type="button" aria-label="Previous song" onClick={() => moveTrack(-1)}>
-              ‹
+              <FaBackwardStep />
             </button>
             <button
               className="icon-button play-button"
@@ -258,16 +354,22 @@ function FloatingMusicPlayer({ tracks }) {
               aria-label={isPlaying ? 'Pause music' : 'Play music'}
               onClick={togglePlayback}
             >
-              {isPlaying ? 'II' : '▶'}
+              {isPlaying ? <FaPause /> : <FaPlay />}
             </button>
             <button className="icon-button" type="button" aria-label="Next song" onClick={() => moveTrack(1)}>
-              ›
+              <FaForwardStep />
             </button>
           </div>
 
-          <div className="player-progress" aria-hidden="true">
+          <button
+            className="player-progress"
+            type="button"
+            aria-label="Seek within the song"
+            onClick={seekToPosition}
+            onPointerDown={seekToPosition}
+          >
             <span />
-          </div>
+          </button>
 
           <div className="equalizer" aria-label="Audio intensity visualizer">
             {bars.map((value, index) => (
@@ -297,14 +399,16 @@ function FloatingMusicPlayer({ tracks }) {
       )}
 
       {isMinimized && (
-        <button
-          className="icon-button play-button"
-          type="button"
-          aria-label={isPlaying ? 'Pause music' : 'Play music'}
-          onClick={togglePlayback}
-        >
-          {isPlaying ? 'II' : '▶'}
-        </button>
+        <div className="minimized-controls">
+          <button
+            className="icon-button play-button"
+            type="button"
+            aria-label={isPlaying ? 'Pause music' : 'Play music'}
+            onClick={togglePlayback}
+          >
+            {isPlaying ? <FaPause /> : <FaPlay />}
+          </button>
+        </div>
       )}
 
       <button
@@ -313,7 +417,7 @@ function FloatingMusicPlayer({ tracks }) {
         aria-label={isMinimized ? 'Expand player' : 'Minimize player'}
         onClick={() => setIsMinimized((current) => !current)}
       >
-        {isMinimized ? '+' : '−'}
+        {isMinimized ? <FaChevronDown className="minimize-icon" /> : <FaChevronDown className="minimize-icon is-open" />}
       </button>
     </aside>
   )
