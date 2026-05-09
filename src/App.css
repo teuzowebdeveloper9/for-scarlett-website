@@ -1095,36 +1095,36 @@
   position: absolute;
   display: grid;
   place-items: center;
-  width: 2.55rem;
+  width: 2.1rem;
   aspect-ratio: 1;
-  border: 1px solid rgba(255, 224, 236, 0.34);
+  border: 1px solid rgba(255, 224, 236, 0.28);
   border-radius: 999px;
   background:
-    radial-gradient(circle at 35% 30%, rgba(255, 241, 246, 0.22), transparent 46%),
-    linear-gradient(180deg, rgba(255, 171, 200, 0.26), rgba(8, 4, 7, 0.8));
+    radial-gradient(circle at 35% 30%, rgba(255, 241, 246, 0.18), transparent 46%),
+    linear-gradient(180deg, rgba(255, 171, 200, 0.2), rgba(8, 4, 7, 0.78));
   color: var(--color-cream);
   box-shadow:
-    0 0 1rem rgba(255, 95, 159, 0.34),
+    0 0 0.8rem rgba(255, 95, 159, 0.26),
     inset 0 1px 0 rgba(255, 255, 255, 0.08);
   cursor: pointer;
   pointer-events: auto;
   z-index: 5;
-  animation: letter-bob 1.7s ease-in-out infinite;
+  animation: letter-bob 2s ease-in-out infinite;
 }
 
 .letter-scroll-button:hover {
   transform: translateY(1px) scale(1.04);
   box-shadow:
-    0 0 1.2rem rgba(255, 95, 159, 0.3),
+    0 0 1rem rgba(255, 95, 159, 0.3),
     inset 0 1px 0 rgba(255, 255, 255, 0.12);
 }
 
 .letter-scroll-button svg {
-  font-size: 0.9rem;
+  font-size: 0.78rem;
 }
 
 .letter-scroll-button-up {
-  top: 0.85rem;
+  top: 1rem;
 }
 
 .letter-scroll-button-down {
@@ -1142,7 +1142,7 @@
   position: absolute;
   inset: 0;
   padding: clamp(1.2rem, 3.2vw, 2.1rem);
-  padding-right: 3.9rem;
+  padding-right: 3.1rem;
   padding-bottom: 6.5rem;
   overflow: auto;
   opacity: 0;
@@ -1160,7 +1160,7 @@
 .letter-text::after {
   content: '';
   display: block;
-  height: 4.25rem;
+  height: 4.75rem;
 }
 
 @keyframes letter-bob {
