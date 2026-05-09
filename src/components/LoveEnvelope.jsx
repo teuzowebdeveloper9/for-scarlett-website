@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import { FaLanguage } from 'react-icons/fa6'
+import { useMemo, useRef, useState } from 'react'
+import { FaChevronDown, FaLanguage } from 'react-icons/fa6'
 
 const letterCopy = {
   en: `Hi my love,
@@ -65,8 +65,21 @@ I adore you, Karina.`,
 function LoveEnvelope() {
   const [isOpen, setIsOpen] = useState(false)
   const [language, setLanguage] = useState('en')
+  const textPaneRefs = useRef({ en: null, zh: null })
   const activeTitle = language === 'en' ? 'For Karina' : '致 Karina'
   const activePrompt = language === 'en' ? 'Close the letter' : '收起这封信'
+  const activePane = useMemo(() => textPaneRefs.current[language], [language])
+
+  const scrollDown = () => {
+    if (!activePane) {
+      return
+    }
+
+    activePane.scrollBy({
+      top: Math.max(220, activePane.clientHeight * 0.45),
+      behavior: 'smooth',
+    })
+  }
 
   return (
     <section className="letter-section" aria-labelledby="letter-title">
@@ -118,17 +131,37 @@ function LoveEnvelope() {
               <div className="letter-overlay">
                 <div className="letter-copy-shell">
                   <div className="letter-text-wrap">
-                    <div className={`letter-text ${language === 'en' ? 'is-active' : ''}`}>
+                    <div
+                      ref={(node) => {
+                        textPaneRefs.current.en = node
+                      }}
+                      className={`letter-text ${language === 'en' ? 'is-active' : ''}`}
+                      aria-hidden={language !== 'en'}
+                    >
                       {letterCopy.en.split('\n\n').map((paragraph) => (
                         <p key={paragraph}>{paragraph}</p>
                       ))}
                     </div>
-                    <div className={`letter-text ${language === 'zh' ? 'is-active' : ''}`}>
+                    <div
+                      ref={(node) => {
+                        textPaneRefs.current.zh = node
+                      }}
+                      className={`letter-text ${language === 'zh' ? 'is-active' : ''}`}
+                      aria-hidden={language !== 'zh'}
+                    >
                       {letterCopy.zh.split('\n\n').map((paragraph) => (
                         <p key={paragraph}>{paragraph}</p>
                       ))}
                     </div>
                   </div>
+                  <button
+                    className="letter-scroll-button"
+                    type="button"
+                    onClick={scrollDown}
+                    aria-label="Scroll the letter down"
+                  >
+                    <FaChevronDown />
+                  </button>
                 </div>
               </div>
             </div>
