@@ -1083,7 +1083,7 @@
   top: 0.75rem;
   right: 0.75rem;
   bottom: 0.75rem;
-  width: 2.55rem;
+  width: 2.2rem;
   z-index: 3;
   display: flex;
   flex-direction: column;
@@ -1109,7 +1109,7 @@
   position: relative;
   display: grid;
   place-items: center;
-  width: 1.95rem;
+  width: 1.75rem;
   aspect-ratio: 1;
   border: 1px solid rgba(255, 224, 236, 0.32);
   border-radius: 999px;
@@ -1123,7 +1123,6 @@
   cursor: pointer;
   pointer-events: auto;
   z-index: 5;
-  animation: letter-bob 2s ease-in-out infinite;
 }
 
 .letter-scroll-button:hover {
@@ -1134,7 +1133,7 @@
 }
 
 .letter-scroll-button svg {
-  font-size: 0.74rem;
+  font-size: 0.66rem;
 }
 
 .letter-text-wrap {
@@ -1167,16 +1166,6 @@
   content: '';
   display: block;
   height: 4.75rem;
-}
-
-@keyframes letter-bob {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(0.2rem);
-  }
 }
 
 .letter-text.is-active {
