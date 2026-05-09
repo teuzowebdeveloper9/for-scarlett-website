@@ -20,6 +20,12 @@ const albumPhotos = [
     mood: 'this style is so her',
     caption: 'She looks so stylish in this photo. This style fits her so much.',
   },
+  {
+    src: '/685023120_970378345743215_5606483074547247357_n.jpg',
+    title: 'So hot',
+    mood: 'I wish I could kiss you',
+    caption: 'You look so hot in this photo. You sent this one a little while ago, and I adore it. I wish I could kiss you.',
+  },
 ]
 
 function KarinaPhotoAlbum() {
@@ -51,7 +57,7 @@ function KarinaPhotoAlbum() {
           <p className="eyebrow">photo album</p>
           <h2 id="album-title">A little gallery of Karina</h2>
           <p className="album-intro">
-            Three small frames, one by one, like the site is keeping its favorite memories close.
+            Four small frames, one by one, like the site is keeping its favorite memories close.
           </p>
 
           <div className="album-meta" aria-label="Current album photo">
