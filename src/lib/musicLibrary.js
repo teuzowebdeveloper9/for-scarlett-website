@@ -7,7 +7,7 @@ const musicFiles = import.meta.glob('../musics-karina-site/*.{mp3,m4a,wav,ogg}',
 const coverClasses = ['cover-rose', 'cover-blush', 'cover-night']
 const romanticDescriptions = [
   'Feels like a late-night promise wrapped in soft pink light.',
-  'Sounds like a memory that keeps finding its way back to you.',
+  'Feels like a memory that lingers softly in the air.',
   'Holds the kind of longing that turns into a smile.',
   'Moves like a heartbeat when someone special is near.',
   'Feels tender, warm, and impossible to forget.',
