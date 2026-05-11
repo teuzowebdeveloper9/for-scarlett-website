@@ -14,7 +14,7 @@ Required envs:
 
 ```env
 PORT=3000
-FRONTEND_ORIGIN=http://localhost:5173
+FRONTEND_ORIGIN=http://localhost:5173,https://for-my-baby-karina-website.vercel.app,https://for-scarlett-website.vercel.app
 SUPABASE_URL=https://your-project.supabase.co
 SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
 LOVER_PAGE_PASSWORD=your-private-lover-password
@@ -31,6 +31,8 @@ GENERATE_LYRICS_RETRY_BASE_DELAY_MS=1500
 ```
 
 ## API
+
+`FRONTEND_ORIGIN` and `FRONTEND_ORIGINS` accept multiple frontend domains separated by commas.
 
 ```http
 GET /musics/:musicId/lyrics

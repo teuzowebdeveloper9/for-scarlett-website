@@ -2,11 +2,24 @@ function normalizeOrigin(value: string): string {
   return value.trim().replace(/\/+$/, '');
 }
 
-export function buildCorsOptions() {
-  const frontendOrigins = (process.env.FRONTEND_ORIGIN ?? '')
+const defaultFrontendOrigins = [
+  'https://for-my-baby-karina-website.vercel.app',
+  'https://for-scarlett-website.vercel.app',
+];
+
+function parseOrigins(value: string | undefined): string[] {
+  return (value ?? '')
     .split(',')
     .map((origin) => normalizeOrigin(origin))
     .filter(Boolean);
+}
+
+export function buildCorsOptions() {
+  const frontendOrigins = [
+    ...defaultFrontendOrigins,
+    ...parseOrigins(process.env.FRONTEND_ORIGIN),
+    ...parseOrigins(process.env.FRONTEND_ORIGINS),
+  ];
 
   return {
     origin: (

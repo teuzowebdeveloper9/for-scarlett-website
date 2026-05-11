@@ -44,3 +44,9 @@ Deploy this repo as two Vercel projects:
 - Backend project root: `backend`. Uses `backend/vercel.json`.
 
 Set the frontend `VITE_API_URL` to the deployed backend URL. Set backend env vars in the backend Vercel project, including `FRONTEND_ORIGIN`, `SUPABASE_URL`, and `SUPABASE_SERVICE_ROLE_KEY`.
+
+`FRONTEND_ORIGIN` accepts multiple domains separated by commas:
+
+```env
+FRONTEND_ORIGIN=https://for-my-baby-karina-website.vercel.app,https://for-scarlett-website.vercel.app
+```
