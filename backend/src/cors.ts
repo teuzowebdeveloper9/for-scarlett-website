@@ -7,6 +7,7 @@ const defaultFrontendOrigins = [
   'https://for-scarlett-website.vercel.app',
 ];
 
+
 function parseOrigins(value: string | undefined): string[] {
   return (value ?? '')
     .split(',')
