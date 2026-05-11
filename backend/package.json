@@ -8,6 +8,7 @@
   "scripts": {
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
+    "lyrics:copy-site": "ts-node scripts/copy-site-lyrics.ts",
     "lyrics:generate": "ts-node scripts/generate-lyrics.ts",
     "start": "nest start",
     "start:dev": "nest start --watch",

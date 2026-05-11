@@ -17,11 +17,11 @@ function Hero() {
       </div>
 
       <div className="hero-content">
-        <p className="eyebrow">made from my heart</p>
-        <h1 id="hero-title">For Karina</h1>
-        <p className="title-chinese">献给 Karina</p>
+        <p className="eyebrow">feito com meu coração</p>
+        <h1 id="hero-title">For Scarlett</h1>
+        <p className="title-chinese">献给 Scarlett</p>
         <p className="hero-subtitle">
-          A little universe I made for you, where every song, photo, and word keeps saying what my heart feels.
+          Um pequeno universo que eu fiz para você, onde cada música, foto e palavra tenta dizer o que meu coração sente.
         </p>
         <p className="hero-subtitle subtitle-chinese">
           这是我为你做的小宇宙，每一首歌、每一张照片、每一句话都在说我想你。

@@ -161,7 +161,7 @@
 
 .experience-nav-items {
   display: grid;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 0.25rem;
   width: 100%;
 }
@@ -214,7 +214,6 @@
 .reveal-on-scroll,
 .music-card,
 .album-stage,
-.sleep-diary-form,
 .handwritten-letter,
 .heart-stage {
   opacity: 0.35;
@@ -227,7 +226,6 @@
 .reveal-on-scroll.is-visible,
 .music-card.is-visible,
 .album-stage.is-visible,
-.sleep-diary-form.is-visible,
 .handwritten-letter.is-visible,
 .heart-stage.is-visible {
   opacity: 1;
@@ -245,7 +243,6 @@
 .hero-section,
 .music-section,
 .album-section,
-.sleep-diary-section,
 .letter-section,
 .heart-section {
   scroll-margin-top: 1rem;
@@ -310,7 +307,6 @@
 .hero-section,
 .music-section,
 .album-section,
-.sleep-diary-section,
 .letter-section,
 .heart-section {
   position: relative;
@@ -920,7 +916,7 @@
   letter-spacing: 0;
 }
 
-.karina-burst-chip {
+.love-burst-chip {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -941,7 +937,7 @@
     inset 0 1px 0 rgba(255, 255, 255, 0.06);
 }
 
-.karina-burst-chip:hover {
+.love-burst-chip:hover {
   transform: translateY(-1px);
   box-shadow:
     0 0 1.5rem rgba(255, 95, 159, 0.26),
@@ -1258,14 +1254,14 @@
   position: relative;
   display: grid;
   place-items: center;
-  min-height: clamp(36rem, 58vw, 45rem);
+  min-height: clamp(38rem, 62vw, 48rem);
   perspective: 85rem;
 }
 
 .album-frame {
   position: absolute;
-  width: min(26rem, 72vw);
-  aspect-ratio: 1290 / 1720;
+  width: min(25rem, 70vw);
+  aspect-ratio: 9 / 16;
   padding: 0.48rem;
   border: 1px solid rgba(255, 218, 228, 0.24);
   border-radius: 1.35rem;
@@ -1378,7 +1374,7 @@
   position: relative;
   overflow: hidden;
   width: 4.8rem;
-  aspect-ratio: 0.75;
+  aspect-ratio: 9 / 16;
   padding: 0.2rem;
   border: 1px solid rgba(255, 205, 220, 0.2);
   border-radius: 0.9rem;
@@ -1427,497 +1423,6 @@
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
 
-.sleep-diary-section {
-  overflow: hidden;
-  background:
-    radial-gradient(circle at 10% 0%, rgba(255, 193, 214, 0.09), transparent 26rem),
-    linear-gradient(180deg, rgba(10, 4, 7, 0.98), rgba(1, 1, 1, 0.99)),
-    var(--color-black);
-}
-
-.sleep-diary-shell {
-  display: grid;
-  grid-template-columns: minmax(18rem, 0.82fr) minmax(22rem, 1fr);
-  gap: clamp(2rem, 5vw, 5rem);
-  align-items: center;
-  width: min(72rem, 100%);
-  margin: 0 auto;
-}
-
-.sleep-diary-copy h2 {
-  margin: 0;
-  color: var(--color-cream);
-  font-family: var(--font-display);
-  font-size: 4rem;
-  line-height: 0.98;
-  text-wrap: balance;
-}
-
-.sleep-diary-copy p {
-  max-width: 31rem;
-  margin: var(--space-6) 0 0;
-  color: var(--color-muted);
-  font-size: 1.04rem;
-  line-height: 1.8;
-}
-
-.sleep-diary-copy .sleep-diary-note {
-  color: rgba(255, 217, 229, 0.82);
-}
-
-.timezone-pair {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: var(--space-3);
-  max-width: 34rem;
-  margin-top: var(--space-8);
-}
-
-.timezone-pair div {
-  padding: var(--space-4);
-  border: 1px solid rgba(255, 205, 220, 0.16);
-  border-radius: var(--radius-lg);
-  background:
-    linear-gradient(180deg, rgba(255, 193, 214, 0.075), rgba(255, 193, 214, 0.025)),
-    rgba(255, 255, 255, 0.018);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.055);
-}
-
-.timezone-pair span,
-.diary-label span,
-.mood-fieldset legend,
-.lover-password-card label span {
-  display: block;
-  color: rgba(255, 217, 229, 0.66);
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0;
-  text-transform: uppercase;
-}
-
-.timezone-pair strong {
-  display: block;
-  margin-top: var(--space-2);
-  color: var(--color-cream);
-  font-family: var(--font-display);
-  font-size: 1.35rem;
-  line-height: 1.1;
-}
-
-.sleep-diary-form {
-  position: relative;
-  padding: clamp(1rem, 3vw, 1.5rem);
-  border: 1px solid rgba(255, 205, 220, 0.2);
-  border-radius: var(--radius-xl);
-  background:
-    linear-gradient(180deg, rgba(255, 213, 226, 0.08), rgba(255, 213, 226, 0.025)),
-    rgba(3, 2, 3, 0.8);
-  box-shadow:
-    0 2rem 5rem rgba(0, 0, 0, 0.42),
-    0 0 3rem rgba(255, 95, 159, 0.12),
-    inset 0 1px 0 rgba(255, 255, 255, 0.06);
-}
-
-.sleep-diary-form-top,
-.lover-password-heading {
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
-  gap: var(--space-3);
-  align-items: center;
-  margin-bottom: var(--space-6);
-}
-
-.moon-badge,
-.lover-password-heading > span {
-  display: grid;
-  place-items: center;
-  width: 3rem;
-  aspect-ratio: 1;
-  border: 1px solid rgba(255, 224, 235, 0.24);
-  border-radius: 999px;
-  background: rgba(255, 193, 214, 0.1);
-  color: var(--color-pink);
-  box-shadow: 0 0 1.3rem rgba(255, 95, 159, 0.18);
-}
-
-.sleep-diary-form-top strong,
-.lover-password-heading strong {
-  color: var(--color-cream);
-  font-family: var(--font-display);
-  font-size: 1.28rem;
-  line-height: 1.1;
-}
-
-.sleep-diary-form-top p,
-.lover-password-heading p {
-  margin: var(--space-2) 0 0;
-  color: var(--color-muted);
-  font-size: 0.92rem;
-}
-
-.mood-fieldset {
-  margin: 0 0 var(--space-5);
-  padding: 0;
-  border: 0;
-}
-
-.mood-fieldset legend {
-  margin-bottom: var(--space-3);
-}
-
-.mood-options {
-  display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: var(--space-2);
-}
-
-.mood-option {
-  min-height: 5.2rem;
-  padding: var(--space-3);
-  border: 1px solid rgba(255, 205, 220, 0.16);
-  border-radius: var(--radius-md);
-  background: rgba(255, 193, 214, 0.055);
-  color: var(--color-cream);
-  cursor: pointer;
-  text-align: left;
-  transition:
-    transform 180ms ease,
-    border-color 180ms ease,
-    background 180ms ease,
-    box-shadow 180ms ease;
-}
-
-.mood-option:hover,
-.mood-option.is-active {
-  border-color: rgba(255, 224, 235, 0.62);
-  background: rgba(255, 193, 214, 0.14);
-  box-shadow: 0 0 1.4rem rgba(255, 95, 159, 0.14);
-  transform: translateY(-2px);
-}
-
-.mood-option span,
-.mood-option small {
-  display: block;
-}
-
-.mood-option span {
-  font-weight: 800;
-  line-height: 1.2;
-}
-
-.mood-option small {
-  margin-top: var(--space-2);
-  color: rgba(255, 217, 229, 0.68);
-  font-size: 0.74rem;
-  line-height: 1.35;
-}
-
-.diary-label {
-  display: block;
-  margin-top: var(--space-5);
-}
-
-.diary-label input,
-.diary-label textarea,
-.lover-password-card input {
-  width: 100%;
-  margin-top: var(--space-2);
-  border: 1px solid rgba(255, 205, 220, 0.18);
-  border-radius: var(--radius-md);
-  background: rgba(1, 1, 1, 0.34);
-  color: var(--color-cream);
-  outline: none;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.035);
-  transition:
-    border-color 180ms ease,
-    box-shadow 180ms ease,
-    background 180ms ease;
-}
-
-.diary-label input,
-.lover-password-card input {
-  height: 3rem;
-  padding: 0 var(--space-4);
-}
-
-.diary-label textarea {
-  min-height: 12rem;
-  resize: vertical;
-  padding: var(--space-4);
-  line-height: 1.65;
-}
-
-.diary-label input:focus,
-.diary-label textarea:focus,
-.lover-password-card input:focus {
-  border-color: rgba(255, 224, 235, 0.72);
-  background: rgba(255, 193, 214, 0.06);
-  box-shadow:
-    0 0 0 3px rgba(255, 193, 214, 0.1),
-    inset 0 1px 0 rgba(255, 255, 255, 0.055);
-}
-
-.diary-label input::placeholder,
-.diary-label textarea::placeholder,
-.lover-password-card input::placeholder {
-  color: rgba(255, 217, 229, 0.38);
-}
-
-.sleep-diary-submit-row {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  gap: var(--space-4);
-  align-items: center;
-  margin-top: var(--space-5);
-}
-
-.diary-status {
-  margin: 0;
-  color: rgba(255, 217, 229, 0.68);
-  font-size: 0.86rem;
-  line-height: 1.5;
-}
-
-.diary-status.is-error,
-.lover-auth-message {
-  color: #ffb8cf;
-}
-
-.diary-submit-button,
-.lover-password-card button,
-.lover-refresh-button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--space-2);
-  min-height: 2.9rem;
-  padding: 0 var(--space-5);
-  border: 1px solid rgba(255, 224, 235, 0.3);
-  border-radius: 999px;
-  background:
-    linear-gradient(180deg, rgba(255, 240, 246, 0.22), rgba(255, 95, 159, 0.18)),
-    rgba(255, 193, 214, 0.12);
-  color: var(--color-cream);
-  cursor: pointer;
-  font-weight: 800;
-  box-shadow:
-    0 0 1.4rem rgba(255, 95, 159, 0.18),
-    inset 0 1px 0 rgba(255, 255, 255, 0.08);
-}
-
-.diary-submit-button:hover,
-.lover-password-card button:hover,
-.lover-refresh-button:hover {
-  border-color: rgba(255, 224, 235, 0.68);
-  box-shadow:
-    0 0 1.8rem rgba(255, 95, 159, 0.26),
-    inset 0 1px 0 rgba(255, 255, 255, 0.12);
-  transform: translateY(-1px);
-}
-
-.diary-submit-button:disabled,
-.lover-password-card button:disabled {
-  cursor: wait;
-  opacity: 0.7;
-}
-
-.diary-privacy-mark {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-2);
-  margin-top: var(--space-5);
-  color: rgba(255, 217, 229, 0.62);
-  font-size: 0.82rem;
-}
-
-.diary-privacy-mark svg {
-  color: var(--color-pink);
-}
-
-.lover-page {
-  min-height: 100svh;
-  padding: clamp(1rem, 4vw, 3rem);
-  background:
-    radial-gradient(circle at 14% 0%, rgba(255, 193, 214, 0.11), transparent 22rem),
-    radial-gradient(circle at 92% 12%, rgba(255, 95, 159, 0.08), transparent 24rem),
-    linear-gradient(180deg, rgba(8, 3, 5, 0.98), #010101 70%),
-    var(--color-black);
-}
-
-.lover-back-link {
-  position: fixed;
-  top: var(--space-5);
-  left: var(--space-5);
-  z-index: 10;
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-2);
-  padding: 0.65rem 0.9rem;
-  border: 1px solid rgba(255, 205, 220, 0.18);
-  border-radius: 999px;
-  background: rgba(1, 1, 1, 0.58);
-  color: var(--color-cream);
-  text-decoration: none;
-  -webkit-backdrop-filter: blur(16px);
-  backdrop-filter: blur(16px);
-}
-
-.lover-hero {
-  display: grid;
-  grid-template-columns: minmax(18rem, 1fr) minmax(20rem, 25rem);
-  gap: clamp(2rem, 6vw, 5rem);
-  align-items: end;
-  width: min(72rem, 100%);
-  margin: 0 auto;
-  padding: clamp(7rem, 15vw, 10rem) 0 var(--space-12);
-}
-
-.lover-hero h1 {
-  max-width: 48rem;
-  margin: 0;
-  color: var(--color-cream);
-  font-family: var(--font-display);
-  font-size: clamp(3rem, 6vw, 6.2rem);
-  line-height: 0.92;
-  text-wrap: balance;
-}
-
-.lover-hero > div > p:not(.eyebrow) {
-  max-width: 37rem;
-  margin: var(--space-6) 0 0;
-  color: var(--color-muted);
-  font-size: 1.08rem;
-  line-height: 1.8;
-}
-
-.lover-password-card {
-  padding: var(--space-5);
-  border: 1px solid rgba(255, 205, 220, 0.2);
-  border-radius: var(--radius-xl);
-  background:
-    linear-gradient(180deg, rgba(255, 213, 226, 0.08), rgba(255, 213, 226, 0.025)),
-    rgba(3, 2, 3, 0.78);
-  box-shadow:
-    0 2rem 4rem rgba(0, 0, 0, 0.38),
-    inset 0 1px 0 rgba(255, 255, 255, 0.06);
-}
-
-.lover-password-card button {
-  width: 100%;
-  margin-top: var(--space-4);
-}
-
-.lover-auth-message {
-  margin: var(--space-3) 0 0;
-  font-size: 0.88rem;
-}
-
-.lover-diary-list {
-  width: min(72rem, 100%);
-  margin: 0 auto;
-  padding-bottom: var(--space-section);
-}
-
-.lover-list-top {
-  display: flex;
-  justify-content: space-between;
-  gap: var(--space-5);
-  align-items: end;
-  margin-bottom: var(--space-8);
-  border-bottom: 1px solid rgba(255, 205, 220, 0.16);
-  padding-bottom: var(--space-5);
-}
-
-.lover-list-top h2 {
-  margin: 0;
-  color: var(--color-cream);
-  font-family: var(--font-display);
-  font-size: clamp(2rem, 4vw, 3.4rem);
-  line-height: 1;
-}
-
-.lover-refresh-button {
-  min-height: 2.55rem;
-}
-
-.lover-empty-state {
-  display: grid;
-  place-items: center;
-  min-height: 18rem;
-  border: 1px dashed rgba(255, 205, 220, 0.22);
-  border-radius: var(--radius-xl);
-  color: rgba(255, 217, 229, 0.68);
-  text-align: center;
-}
-
-.lover-empty-state svg {
-  margin-bottom: var(--space-3);
-  color: var(--color-pink);
-  font-size: 2rem;
-  filter: drop-shadow(0 0 1rem rgba(255, 95, 159, 0.34));
-}
-
-.lover-entry-stack {
-  display: grid;
-  gap: var(--space-5);
-}
-
-.lover-entry-card {
-  padding: clamp(1rem, 3vw, 1.5rem);
-  border: 1px solid rgba(255, 205, 220, 0.18);
-  border-radius: var(--radius-lg);
-  background:
-    linear-gradient(180deg, rgba(255, 213, 226, 0.07), rgba(255, 213, 226, 0.022)),
-    rgba(255, 255, 255, 0.018);
-  box-shadow:
-    0 1.2rem 3rem rgba(0, 0, 0, 0.32),
-    inset 0 1px 0 rgba(255, 255, 255, 0.055);
-}
-
-.lover-entry-meta {
-  display: flex;
-  justify-content: space-between;
-  gap: var(--space-4);
-  align-items: flex-start;
-}
-
-.lover-entry-meta > span {
-  display: inline-flex;
-  align-items: center;
-  min-height: 2.1rem;
-  padding: 0 var(--space-3);
-  border: 1px solid rgba(255, 224, 235, 0.24);
-  border-radius: 999px;
-  background: rgba(255, 193, 214, 0.1);
-  color: var(--color-cream);
-  font-size: 0.86rem;
-  font-weight: 800;
-}
-
-.lover-entry-meta div {
-  display: grid;
-  gap: 0.25rem;
-  color: rgba(255, 217, 229, 0.58);
-  font-size: 0.78rem;
-  text-align: right;
-}
-
-.lover-entry-card h3 {
-  margin: var(--space-5) 0 0;
-  color: var(--color-cream);
-  font-family: var(--font-display);
-  font-size: clamp(1.45rem, 2.5vw, 2.2rem);
-  line-height: 1.08;
-}
-
-.lover-entry-card p {
-  margin: var(--space-4) 0 0;
-  color: rgba(255, 232, 239, 0.82);
-  font-size: 1rem;
-  line-height: 1.82;
-  white-space: pre-wrap;
-}
-
 .letter-section {
   background:
     linear-gradient(180deg, #010101, rgba(8, 3, 5, 0.98)),
@@ -1954,11 +1459,6 @@
 .heart-stage:focus-visible,
 .album-icon-button:focus-visible,
 .album-thumb:focus-visible,
-.mood-option:focus-visible,
-.diary-submit-button:focus-visible,
-.lover-back-link:focus-visible,
-.lover-password-card button:focus-visible,
-.lover-refresh-button:focus-visible,
 .icon-button:focus-visible {
   outline: 2px solid var(--color-pink);
   outline-offset: 4px;
@@ -2686,27 +2186,6 @@
     transform: translateY(-0.35rem);
   }
 
-  .sleep-diary-shell {
-    grid-template-columns: 1fr;
-    width: min(44rem, 100%);
-  }
-
-  .sleep-diary-copy {
-    text-align: center;
-  }
-
-  .sleep-diary-copy p {
-    margin-inline: auto;
-  }
-
-  .timezone-pair {
-    margin-inline: auto;
-  }
-
-  .mood-options {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-
   .letter-stage.is-open {
     min-height: 54rem;
   }
@@ -2749,7 +2228,6 @@
   .hero-section,
   .music-section,
   .album-section,
-  .sleep-diary-section,
   .letter-section,
   .heart-section {
     padding-inline: var(--space-5);
@@ -2908,49 +2386,6 @@
     width: 100%;
   }
 
-  .sleep-diary-copy h2 {
-    font-size: 2.7rem;
-  }
-
-  .timezone-pair {
-    grid-template-columns: 1fr;
-  }
-
-  .sleep-diary-submit-row {
-    grid-template-columns: 1fr;
-  }
-
-  .diary-submit-button {
-    width: 100%;
-  }
-
-  .lover-page {
-    padding-inline: var(--space-5);
-  }
-
-  .lover-back-link {
-    top: var(--space-3);
-    left: var(--space-3);
-  }
-
-  .lover-hero {
-    grid-template-columns: 1fr;
-    padding-top: 6rem;
-  }
-
-  .lover-list-top {
-    align-items: flex-start;
-    flex-direction: column;
-  }
-
-  .lover-entry-meta {
-    flex-direction: column;
-  }
-
-  .lover-entry-meta div {
-    text-align: left;
-  }
-
   .letter-stage {
     padding-bottom: var(--space-8);
   }
@@ -3055,7 +2490,6 @@
   .hero-section,
   .music-section,
   .album-section,
-  .sleep-diary-section,
   .letter-section,
   .heart-section {
     padding-inline: var(--space-4);
@@ -3172,48 +2606,6 @@
     gap: var(--space-2);
   }
 
-  .sleep-diary-copy h2 {
-    font-size: 2.1rem;
-  }
-
-  .sleep-diary-form {
-    padding: 0.85rem;
-  }
-
-  .mood-options {
-    grid-template-columns: 1fr;
-  }
-
-  .mood-option {
-    min-height: auto;
-  }
-
-  .sleep-diary-form-top,
-  .lover-password-heading {
-    grid-template-columns: 1fr;
-  }
-
-  .moon-badge,
-  .lover-password-heading > span {
-    width: 2.55rem;
-  }
-
-  .lover-page {
-    padding-inline: var(--space-4);
-  }
-
-  .lover-hero h1 {
-    font-size: 2.75rem;
-  }
-
-  .lover-password-card {
-    padding: var(--space-4);
-  }
-
-  .lover-entry-card {
-    border-radius: var(--radius-md);
-  }
-
   .letter-stage.is-open {
     min-height: 39rem;
   }
@@ -3286,7 +2678,6 @@
   .reveal-on-scroll,
   .music-card,
   .album-stage,
-  .sleep-diary-form,
   .handwritten-letter,
   .heart-stage {
     opacity: 1 !important;

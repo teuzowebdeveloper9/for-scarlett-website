@@ -1,13 +1,12 @@
 import { useEffect, useState } from 'react'
-import { FaEnvelopeOpenText, FaHeart, FaHouse, FaImages, FaMoon, FaMusic } from 'react-icons/fa6'
+import { FaEnvelopeOpenText, FaHeart, FaHouse, FaImages, FaMusic } from 'react-icons/fa6'
 
 const moments = [
-  { id: 'home', label: 'Home', icon: FaHouse },
-  { id: 'songs', label: 'Songs', icon: FaMusic },
-  { id: 'photos', label: 'Photos', icon: FaImages },
-  { id: 'diary', label: 'Diary', icon: FaMoon },
-  { id: 'letter', label: 'Letter', icon: FaEnvelopeOpenText },
-  { id: 'heart', label: 'Heart', icon: FaHeart },
+  { id: 'home', label: 'Inicio', icon: FaHouse },
+  { id: 'songs', label: 'Musicas', icon: FaMusic },
+  { id: 'photos', label: 'Fotos', icon: FaImages },
+  { id: 'letter', label: 'Carta', icon: FaEnvelopeOpenText },
+  { id: 'heart', label: 'Coracao', icon: FaHeart },
 ]
 
 function ExperienceLayer() {
@@ -54,9 +53,7 @@ function ExperienceLayer() {
       }
     })
 
-    const revealChildren = document.querySelectorAll(
-      '.music-card, .album-stage, .sleep-diary-form, .handwritten-letter, .heart-stage',
-    )
+    const revealChildren = document.querySelectorAll('.music-card, .album-stage, .handwritten-letter, .heart-stage')
     revealChildren.forEach((item) => revealObserver.observe(item))
 
     const pointerQuery = window.matchMedia('(pointer: fine)')
@@ -83,8 +80,8 @@ function ExperienceLayer() {
   }
 
   return (
-    <nav className="experience-nav" aria-label="Karina experience sections">
-      <span className="experience-nav-mark">For K</span>
+    <nav className="experience-nav" aria-label="Secoes da experiencia da Scarlett">
+      <span className="experience-nav-mark">For S</span>
       <div className="experience-nav-items">
         {moments.map(({ id, label, icon: Icon }) => (
           <button

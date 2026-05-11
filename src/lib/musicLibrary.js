@@ -6,11 +6,11 @@ const musicFiles = import.meta.glob('../musics-karina-site/*.{mp3,m4a,wav,ogg}',
 
 const coverClasses = ['cover-rose', 'cover-blush', 'cover-night']
 const romanticDescriptions = [
-  'This song feels like me missing you in the quiet part of the night.',
-  'This one makes me think about your voice and the way I wish you were closer.',
-  'A song for the distance between us, and for the love that keeps crossing it.',
-  'This feels like my heartbeat when your name appears on my screen.',
-  'A soft reminder that even far away, you are still the closest thing to my heart.',
+  'Essa música parece minha saudade falando baixo no meio da noite.',
+  'Essa me faz pensar na sua voz e em como eu queria você mais perto.',
+  'Uma música para a distância entre nós e para o amor que continua atravessando tudo.',
+  'Isso parece meu coração quando seu nome aparece na tela.',
+  'Um lembrete suave de que, mesmo longe, você continua sendo o lugar mais perto do meu coração.',
 ]
 const poeticChineseTitles = [
   '温柔心跳',
@@ -21,10 +21,10 @@ const poeticChineseTitles = [
 ]
 
 const itsYouDescription =
-  'I chose this song because I choose you every day. Even with distance, doubts, and hard days, my heart still comes back to you.'
+  'Eu escolhi essa música porque eu escolho você todos os dias. Mesmo com distância, dúvidas e dias difíceis, meu coração ainda volta para você.'
 const itsYouDescriptionChinese = '我选择这首歌，是因为我每天都会选择你。我希望自己永远不会后悔，因为我知道你不会让我失望。'
 const carsOutsideDescription =
-  "This song reminds me of you because distance is the hardest part of loving you. Every time I hear it, I think about how much I wish I could stop leaving, stay close, and be with you for real."
+  'Essa música me lembra você porque a distância é a parte mais difícil de te amar. Sempre que eu escuto, penso no quanto eu queria parar de ir embora, ficar perto e viver isso de verdade.'
 const carsOutsideDescriptionChinese = '这首歌让我想起你，因为距离是爱你最难的部分。每次听到它，我都会想，如果我可以不离开，可以留在你身边就好了。'
 
 function slugify(value) {

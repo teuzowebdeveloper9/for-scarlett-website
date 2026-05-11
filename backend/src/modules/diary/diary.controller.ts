@@ -8,12 +8,16 @@ export class DiaryController {
   constructor(private readonly diaryService: DiaryService) {}
 
   @Post('entries')
-  createEntry(@Body() payload: CreateDiaryEntryDto): Promise<DiaryEntryResponseDto> {
+  createEntry(
+    @Body() payload: CreateDiaryEntryDto,
+  ): Promise<DiaryEntryResponseDto> {
     return this.diaryService.createEntry(payload);
   }
 
   @Get('entries')
-  listEntries(@Headers('x-lover-password') password?: string): Promise<DiaryEntryResponseDto[]> {
+  listEntries(
+    @Headers('x-lover-password') password?: string,
+  ): Promise<DiaryEntryResponseDto[]> {
     return this.diaryService.listEntries(password);
   }
 }

@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { SupabaseService } from '../supabase/supabase.service';
 import { CreateDiaryEntryDto } from './dto/create-diary-entry.dto';
 import { DiaryEntryResponseDto } from './dto/diary-entry-response.dto';
@@ -17,36 +21,52 @@ interface DiaryEntryRow {
 export class DiaryService {
   constructor(private readonly supabaseService: SupabaseService) {}
 
-  async createEntry(payload: CreateDiaryEntryDto): Promise<DiaryEntryResponseDto> {
+  async createEntry(
+    payload: CreateDiaryEntryDto,
+  ): Promise<DiaryEntryResponseDto> {
     const entry = {
       mood: this.cleanText(payload.mood, 'mood', 48),
       title: this.cleanText(payload.title, 'title', 120),
       description: this.cleanText(payload.description, 'description', 4000),
-      author_timezone: this.cleanOptionalText(payload.authorTimezone, 'Asia/Almaty', 64),
-      reader_timezone: this.cleanOptionalText(payload.readerTimezone, 'America/Sao_Paulo', 64),
+      author_timezone: this.cleanOptionalText(
+        payload.authorTimezone,
+        'Asia/Almaty',
+        64,
+      ),
+      reader_timezone: this.cleanOptionalText(
+        payload.readerTimezone,
+        'America/Sao_Paulo',
+        64,
+      ),
     };
 
     const { data, error } = await this.supabaseService
       .getClient()
       .from('karina_diary_entries')
       .insert(entry)
-      .select('id,mood,title,description,author_timezone,reader_timezone,created_at')
+      .select(
+        'id,mood,title,description,author_timezone,reader_timezone,created_at',
+      )
       .single();
 
     if (error) {
       throw error;
     }
 
-    return this.toResponse(data as DiaryEntryRow);
+    return this.toResponse(data);
   }
 
-  async listEntries(password: string | undefined): Promise<DiaryEntryResponseDto[]> {
+  async listEntries(
+    password: string | undefined,
+  ): Promise<DiaryEntryResponseDto[]> {
     this.assertLoverPassword(password);
 
     const { data, error } = await this.supabaseService
       .getClient()
       .from('karina_diary_entries')
-      .select('id,mood,title,description,author_timezone,reader_timezone,created_at')
+      .select(
+        'id,mood,title,description,author_timezone,reader_timezone,created_at',
+      )
       .order('created_at', { ascending: false })
       .limit(100);
 
@@ -57,7 +77,11 @@ export class DiaryService {
     return ((data ?? []) as DiaryEntryRow[]).map((row) => this.toResponse(row));
   }
 
-  private cleanText(value: string | undefined, fieldName: string, maxLength: number): string {
+  private cleanText(
+    value: string | undefined,
+    fieldName: string,
+    maxLength: number,
+  ): string {
     const text = typeof value === 'string' ? value.trim() : '';
 
     if (!text) {
@@ -65,13 +89,19 @@ export class DiaryService {
     }
 
     if (text.length > maxLength) {
-      throw new BadRequestException(`${fieldName} must be ${maxLength} characters or less.`);
+      throw new BadRequestException(
+        `${fieldName} must be ${maxLength} characters or less.`,
+      );
     }
 
     return text;
   }
 
-  private cleanOptionalText(value: string | undefined, fallback: string, maxLength: number): string {
+  private cleanOptionalText(
+    value: string | undefined,
+    fallback: string,
+    maxLength: number,
+  ): string {
     const text = typeof value === 'string' ? value.trim() : '';
     return text.slice(0, maxLength) || fallback;
   }

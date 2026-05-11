@@ -1,5 +1,6 @@
 export class LyricsLineDto {
   time: number;
-  english: string;
+  english?: string;
+  portuguese?: string;
   chinese: string;
 }

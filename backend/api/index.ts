@@ -18,7 +18,10 @@ async function bootstrap() {
   await app.init();
 }
 
-export default async function handler(request: express.Request, response: express.Response) {
+export default async function handler(
+  request: express.Request,
+  response: express.Response,
+) {
   bootstrapPromise ??= bootstrap();
   await bootstrapPromise;
 

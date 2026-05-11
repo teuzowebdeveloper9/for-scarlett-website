@@ -1,17 +1,17 @@
 import { FaPlay } from 'react-icons/fa6'
 
 function openTrack(musicId) {
-  window.dispatchEvent(new CustomEvent('karina:play-track', { detail: { musicId } }))
+  window.dispatchEvent(new CustomEvent('scarlett:play-track', { detail: { musicId } }))
 }
 
 function MusicGallery({ songs }) {
   return (
     <section className="music-section reveal-on-scroll" id="songs" aria-labelledby="music-title">
       <div className="section-heading">
-        <p className="eyebrow">soundtrack</p>
-        <h2 id="music-title">The songs I would play for you</h2>
+        <p className="eyebrow">trilha sonora</p>
+        <h2 id="music-title">As músicas que eu tocaria para você</h2>
         <p className="heading-chinese">我想放给你听的歌</p>
-        <p>Every track is a small way of holding your hand from far away.</p>
+        <p>Cada faixa é um jeito pequeno de segurar sua mão mesmo de longe.</p>
         <p className="copy-chinese">每一首歌都像我隔着距离轻轻牵住你的手。</p>
       </div>
 

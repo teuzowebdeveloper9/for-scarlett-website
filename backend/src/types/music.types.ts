@@ -6,7 +6,8 @@ export interface Music {
 
 export interface LyricsLine {
   time: number;
-  english: string;
+  english?: string;
+  portuguese?: string;
   chinese: string;
 }
 

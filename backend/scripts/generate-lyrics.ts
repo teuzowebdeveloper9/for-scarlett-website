@@ -22,14 +22,20 @@ interface MistralTranscriptionResponse {
 }
 
 const audioExtensions = new Set(['.mp3', '.m4a', '.wav', '.ogg']);
-const supabase = createClient(getRequiredEnv('SUPABASE_URL'), getRequiredEnv('SUPABASE_SERVICE_ROLE_KEY'), {
-  auth: {
-    persistSession: false,
-    autoRefreshToken: false,
+const supabase = createClient(
+  getRequiredEnv('SUPABASE_URL'),
+  getRequiredEnv('SUPABASE_SERVICE_ROLE_KEY'),
+  {
+    auth: {
+      persistSession: false,
+      autoRefreshToken: false,
+    },
   },
-});
+);
 const maxRetries = Number(process.env.GENERATE_LYRICS_RETRIES ?? 3);
-const retryBaseDelayMs = Number(process.env.GENERATE_LYRICS_RETRY_BASE_DELAY_MS ?? 1500);
+const retryBaseDelayMs = Number(
+  process.env.GENERATE_LYRICS_RETRY_BASE_DELAY_MS ?? 1500,
+);
 
 function getRequiredEnv(name: string): string {
   const value = process.env[name];
@@ -52,7 +58,10 @@ function slugify(value: string): string {
 
 function cleanName(value: string): string {
   return value
-    .replace(/\s*\((youtube|official audio|official video|audio|video)\)\s*/gi, ' ')
+    .replace(
+      /\s*\((youtube|official audio|official video|audio|video)\)\s*/gi,
+      ' ',
+    )
     .replace(/\s*\[[^\]]+\]\s*/g, ' ')
     .replace(/\s+/g, ' ')
     .trim();
@@ -77,7 +86,10 @@ function isRetryableError(error: unknown): boolean {
   );
 }
 
-async function retryWithBackoff<T>(operation: () => Promise<T>, label: string): Promise<T> {
+async function retryWithBackoff<T>(
+  operation: () => Promise<T>,
+  label: string,
+): Promise<T> {
   let lastError: unknown;
 
   for (let attempt = 1; attempt <= Math.max(1, maxRetries); attempt += 1) {
@@ -94,7 +106,9 @@ async function retryWithBackoff<T>(operation: () => Promise<T>, label: string): 
       }
 
       const delay = retryBaseDelayMs * attempt;
-      console.warn(`${label} failed on attempt ${attempt}/${maxRetries}. Retrying in ${delay}ms.`);
+      console.warn(
+        `${label} failed on attempt ${attempt}/${maxRetries}. Retrying in ${delay}ms.`,
+      );
       await sleep(delay);
     }
   }
@@ -104,7 +118,10 @@ async function retryWithBackoff<T>(operation: () => Promise<T>, label: string): 
 
 function parseTrackInfo(fileName: string) {
   const nameWithoutExtension = fileName.replace(/\.[^.]+$/, '');
-  const parts = nameWithoutExtension.split(' - ').map(cleanName).filter(Boolean);
+  const parts = nameWithoutExtension
+    .split(' - ')
+    .map(cleanName)
+    .filter(Boolean);
 
   return {
     musicId: slugify(nameWithoutExtension),
@@ -117,7 +134,11 @@ async function listAudioFiles(audioDir: string): Promise<string[]> {
   const entries = await readdir(audioDir, { withFileTypes: true });
 
   return entries
-    .filter((entry) => entry.isFile() && audioExtensions.has(extname(entry.name).toLowerCase()))
+    .filter(
+      (entry) =>
+        entry.isFile() &&
+        audioExtensions.has(extname(entry.name).toLowerCase()),
+    )
     .map((entry) => join(audioDir, entry.name))
     .sort((left, right) => left.localeCompare(right));
 }
@@ -136,14 +157,23 @@ async function hasLyricsForMusicId(musicId: string): Promise<boolean> {
   return Boolean(data);
 }
 
-async function transcribeAudioWithMistral(audioPath: string): Promise<TimedTranscriptionSegment[]> {
+async function transcribeAudioWithMistral(
+  audioPath: string,
+): Promise<TimedTranscriptionSegment[]> {
   const apiKey = getRequiredEnv('MISTRAL_API_KEY');
   const fileBuffer = await readFile(audioPath);
   const formData = new FormData();
 
-  formData.append('model', process.env.MISTRAL_TRANSCRIPTION_MODEL ?? 'voxtral-mini-latest');
+  formData.append(
+    'model',
+    process.env.MISTRAL_TRANSCRIPTION_MODEL ?? 'voxtral-mini-latest',
+  );
   formData.append('timestamp_granularities', 'segment');
-  formData.append('file', new Blob([new Uint8Array(fileBuffer)]), basename(audioPath));
+  formData.append(
+    'file',
+    new Blob([new Uint8Array(fileBuffer)]),
+    basename(audioPath),
+  );
 
   const response = await retryWithBackoff(
     () =>
@@ -159,7 +189,9 @@ async function transcribeAudioWithMistral(audioPath: string): Promise<TimedTrans
 
   if (!response.ok) {
     const message = await response.text();
-    throw new Error(`Mistral transcription failed for ${basename(audioPath)}: ${message}`);
+    throw new Error(
+      `Mistral transcription failed for ${basename(audioPath)}: ${message}`,
+    );
   }
 
   const payload = (await response.json()) as MistralTranscriptionResponse;
@@ -179,7 +211,9 @@ async function transcribeAudioWithMistral(audioPath: string): Promise<TimedTrans
   return [];
 }
 
-async function organizeAndTranslateLyrics(segments: TimedTranscriptionSegment[]): Promise<LyricsLine[]> {
+async function organizeAndTranslateLyrics(
+  segments: TimedTranscriptionSegment[],
+): Promise<LyricsLine[]> {
   if (segments.length === 0) {
     return [];
   }
@@ -209,7 +243,7 @@ async function organizeAndTranslateLyrics(segments: TimedTranscriptionSegment[])
               role: 'user',
               content: JSON.stringify({
                 instructions:
-                  'Group nearby transcription segments into short lyric lines. Keep the original meaning in English. Translate each line to Simplified Chinese. Preserve the first timestamp of each grouped line. Return {"lyrics":[{"time":0,"english":"...","chinese":"..."}]}.',
+                  'Group nearby transcription segments into short lyric lines. Keep the original meaning in English. Translate each line to Brazilian Portuguese and Simplified Chinese. Preserve the first timestamp of each grouped line. Return {"lyrics":[{"time":0,"english":"...","portuguese":"...","chinese":"..."}]}.',
                 segments,
               }),
             },
@@ -228,10 +262,14 @@ async function organizeAndTranslateLyrics(segments: TimedTranscriptionSegment[])
   const content = payload.choices?.[0]?.message?.content;
 
   if (typeof content !== 'string') {
-    throw new Error('Mistral lyric organization returned an unexpected response.');
+    throw new Error(
+      'Mistral lyric organization returned an unexpected response.',
+    );
   }
 
-  const parsed = JSON.parse(content.replace(/^```json|```$/g, '').trim()) as { lyrics?: LyricsLine[] };
+  const parsed = JSON.parse(content.replace(/^```json|```$/g, '').trim()) as {
+    lyrics?: LyricsLine[];
+  };
 
   return parsed.lyrics ?? [];
 }
@@ -261,11 +299,15 @@ async function processAudioFile(audioPath: string): Promise<void> {
   const trackInfo = parseTrackInfo(basename(audioPath));
 
   if (await hasLyricsForMusicId(trackInfo.musicId)) {
-    console.log(`Skipping ${trackInfo.title} (${trackInfo.musicId}) because it already exists.`);
+    console.log(
+      `Skipping ${trackInfo.title} (${trackInfo.musicId}) because it already exists.`,
+    );
     return;
   }
 
-  console.log(`Generating lyrics for ${trackInfo.title} (${trackInfo.musicId})`);
+  console.log(
+    `Generating lyrics for ${trackInfo.title} (${trackInfo.musicId})`,
+  );
 
   const transcription = await transcribeAudioWithMistral(audioPath);
   const lyrics = await organizeAndTranslateLyrics(transcription);
@@ -279,7 +321,10 @@ async function processAudioFile(audioPath: string): Promise<void> {
 }
 
 async function main() {
-  const audioDir = process.argv[2] ?? process.env.AUDIO_INPUT_DIR ?? '../my-baby-website-karina/src/musics-karina-site';
+  const audioDir =
+    process.argv[2] ??
+    process.env.AUDIO_INPUT_DIR ??
+    '../src/musics-karina-site';
   const audioFiles = await listAudioFiles(audioDir);
   const failures: string[] = [];
 
@@ -299,7 +344,9 @@ async function main() {
   }
 
   if (failures.length > 0) {
-    console.warn(`Finished with ${failures.length} failed file(s): ${failures.join(', ')}`);
+    console.warn(
+      `Finished with ${failures.length} failed file(s): ${failures.join(', ')}`,
+    );
     process.exitCode = 1;
   }
 }

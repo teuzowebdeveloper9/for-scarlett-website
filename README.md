@@ -1,6 +1,6 @@
-# For Karina Baby Website
+# For Scarlett Baby Website
 
-Romantic Vite + React website with a local music player, neon heart visuals, and synchronized lyrics support.
+Romantic Vite + React website in Portuguese with Chinese visual accents, a local music player, neon heart visuals, photo album, and synchronized lyrics support.
 
 ## Frontend setup
 
@@ -22,10 +22,10 @@ The player discovers `.mp3`, `.m4a`, `.wav`, and `.ogg` files automatically with
 
 ## Lyrics API
 
-Set `VITE_API_URL` to the NestJS backend URL. Default:
+Set `VITE_API_URL` to the shared NestJS backend URL. Default:
 
 ```env
-VITE_API_URL=http://localhost:3000
+VITE_API_URL=https://for-my-baby-karina-website-back.vercel.app
 ```
 
 The player calls:
@@ -34,25 +34,7 @@ The player calls:
 GET /musics/:musicId/lyrics
 ```
 
-If no lyrics JSON exists yet, the player still works and shows a placeholder.
-
-## Private diary
-
-The main page includes a diary form for Karina to leave notes from Kazakhstan while you sleep in Brazil.
-
-Your protected reading page is:
-
-```text
-/lover
-```
-
-The `/lover` page asks for a password and calls:
-
-```text
-GET /diary/entries
-```
-
-Set `LOVER_PAGE_PASSWORD` in the backend `.env`. Do not put this password in frontend env files.
+If no lyrics JSON exists yet, the player still works and shows a placeholder. When a line has `portuguese`, this Scarlett frontend displays it; Karina can keep displaying `english`.
 
 ## Vercel deploy
 
@@ -61,4 +43,4 @@ Deploy this repo as two Vercel projects:
 - Frontend project root: repository root. Uses `vercel.json`.
 - Backend project root: `backend`. Uses `backend/vercel.json`.
 
-Set the frontend `VITE_API_URL` to the deployed backend URL. Set backend env vars in the backend Vercel project, including `FRONTEND_ORIGIN`, `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`, and `LOVER_PAGE_PASSWORD`.
+Set the frontend `VITE_API_URL` to the deployed backend URL. Set backend env vars in the backend Vercel project, including `FRONTEND_ORIGIN`, `SUPABASE_URL`, and `SUPABASE_SERVICE_ROLE_KEY`.

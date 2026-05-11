@@ -26,7 +26,7 @@ export class LyricsService {
       throw error;
     }
 
-    const row = data as MusicLyricsRow | null;
+    const row = data;
 
     if (!row) {
       throw new NotFoundException(`Lyrics not found for musicId "${musicId}".`);
@@ -40,7 +40,9 @@ export class LyricsService {
     };
   }
 
-  private extractLyrics(lyricsJson: MusicLyricsRow['lyrics_json']): LyricsLine[] {
+  private extractLyrics(
+    lyricsJson: MusicLyricsRow['lyrics_json'],
+  ): LyricsLine[] {
     if (!lyricsJson) {
       return [];
     }

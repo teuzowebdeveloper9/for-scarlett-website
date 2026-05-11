@@ -3,32 +3,32 @@ import { FaChevronLeft, FaChevronRight, FaHeart, FaPause, FaPlay } from 'react-i
 
 const albumPhotos = [
   {
-    src: '/karinaaaa.jpeg',
-    title: 'So chic',
-    mood: 'I love this about her',
-    caption: 'You look so chic here. I love the way you can turn one photo into something I keep thinking about.',
+    src: '/scarlett/close-up-blue-hour.jpeg',
+    title: 'Olhar de fim de tarde',
+    mood: 'me perde fácil',
+    caption: 'Esse olhar tem uma calma bonita demais. É o tipo de foto que eu olho e fico com vontade de chegar mais perto.',
   },
   {
-    src: '/karinaaaaajnjer.jpeg',
-    title: 'My lady',
-    mood: 'totally in love',
-    caption: 'This photo makes me fall for you all over again. You are my lady, and I love that.',
+    src: '/scarlett/selfie-outside.jpeg',
+    title: 'Meu cabelo favorito',
+    mood: 'tão linda sem esforço',
+    caption: 'Seu cabelo, seu rosto, esse jeito de tirar foto como se nem soubesse o quanto fica linda. Eu adoro isso em você.',
   },
   {
-    src: '/karinaklerjegrkg.jpeg',
-    title: 'So stylish',
-    mood: 'this style is so her',
-    caption: 'You look so stylish here. This outfit feels so much like you, and I adore that energy.',
+    src: '/scarlett/glitter-look.jpeg',
+    title: 'Brilho de estrela',
+    mood: 'parece sonho',
+    caption: 'Essa foto parece um pedacinho de céu no seu rosto. Você fica surreal com esse brilho todo, meu amor.',
   },
   {
-    src: '/685023120_970378345743215_5606483074547247357_n.jpg',
-    title: 'So hot',
-    mood: 'I wish I could kiss you',
-    caption: 'You look so hot in this photo. You sent this one a little while ago, and I adore it. I wish I could kiss you.',
+    src: '/scarlett/soft-room-selfie.jpeg',
+    title: 'Jeitinho só seu',
+    mood: 'minha saudade aperta',
+    caption: 'Tem uma doçura nessa foto que me quebra. Eu olho e só penso em te abraçar, te puxar para perto e ficar ali.',
   },
 ]
 
-function KarinaPhotoAlbum() {
+function ScarlettPhotoAlbum() {
   const [activeIndex, setActiveIndex] = useState(0)
   const [isAutoPlaying, setIsAutoPlaying] = useState(true)
   const activePhoto = albumPhotos[activeIndex]
@@ -54,13 +54,13 @@ function KarinaPhotoAlbum() {
     <section className="album-section reveal-on-scroll" id="photos" aria-labelledby="album-title">
       <div className="album-shell">
         <div className="album-copy">
-          <p className="eyebrow">photo album</p>
-          <h2 id="album-title">Photos that make me miss you more</h2>
+          <p className="eyebrow">album de fotos</p>
+          <h2 id="album-title">Fotos que fazem minha saudade aumentar</h2>
           <p className="album-intro">
-            Four little moments of you, saved here because my heart does not know how to ignore them.
+            Quatro retratos seus guardados aqui, porque meu coração sempre encontra um detalhe novo para amar em você.
           </p>
 
-          <div className="album-meta" aria-label="Current album photo">
+          <div className="album-meta" aria-label="Foto atual do album">
             <span>{String(activeIndex + 1).padStart(2, '0')}</span>
             <div>
               <strong>{activePhoto.title}</strong>
@@ -68,12 +68,12 @@ function KarinaPhotoAlbum() {
             </div>
           </div>
 
-          <div className="album-actions" aria-label="Photo album controls">
+          <div className="album-actions" aria-label="Controles do album de fotos">
             <button
               type="button"
               className="album-icon-button"
               onClick={() => showPhoto(activeIndex - 1)}
-              aria-label="Previous photo"
+              aria-label="Foto anterior"
             >
               <FaChevronLeft />
             </button>
@@ -81,7 +81,7 @@ function KarinaPhotoAlbum() {
               type="button"
               className="album-icon-button album-play-toggle"
               onClick={() => setIsAutoPlaying((current) => !current)}
-              aria-label={isAutoPlaying ? 'Pause photo album' : 'Play photo album'}
+              aria-label={isAutoPlaying ? 'Pausar album de fotos' : 'Tocar album de fotos'}
             >
               {isAutoPlaying ? <FaPause /> : <FaPlay />}
             </button>
@@ -89,7 +89,7 @@ function KarinaPhotoAlbum() {
               type="button"
               className="album-icon-button"
               onClick={() => showPhoto(activeIndex + 1)}
-              aria-label="Next photo"
+              aria-label="Proxima foto"
             >
               <FaChevronRight />
             </button>
@@ -112,14 +112,14 @@ function KarinaPhotoAlbum() {
           </div>
         </div>
 
-        <div className="album-thumbnails" aria-label="Choose a photo">
+        <div className="album-thumbnails" aria-label="Escolher uma foto">
           {albumPhotos.map((photo, index) => (
             <button
               key={photo.src}
               type="button"
               className={`album-thumb ${index === activeIndex ? 'is-active' : ''}`}
               onClick={() => showPhoto(index)}
-              aria-label={`Show ${photo.title}`}
+              aria-label={`Mostrar ${photo.title}`}
               aria-current={index === activeIndex ? 'true' : undefined}
             >
               <img src={photo.src} alt="" />
@@ -132,4 +132,4 @@ function KarinaPhotoAlbum() {
   )
 }
 
-export default KarinaPhotoAlbum
+export default ScarlettPhotoAlbum

@@ -61,7 +61,7 @@ function buildSessionQueue(tracks) {
 }
 
 function FloatingMusicPlayer({ tracks }) {
-  const [trackQueue, setTrackQueue] = useState(() => buildSessionQueue(tracks))
+  const trackQueue = useMemo(() => buildSessionQueue(tracks), [tracks])
   const [trackIndex, setTrackIndex] = useState(0)
   const [isPlaying, setIsPlaying] = useState(false)
   const [isMinimized, setIsMinimized] = useState(false)
@@ -69,8 +69,7 @@ function FloatingMusicPlayer({ tracks }) {
   const [bars, setBars] = useState(emptyBars)
   const [currentTime, setCurrentTime] = useState(0)
   const [duration, setDuration] = useState(0)
-  const [lyricsData, setLyricsData] = useState(null)
-  const [lyricsStatus, setLyricsStatus] = useState('idle')
+  const [lyricsState, setLyricsState] = useState({ data: null, status: 'idle' })
 
   const audioRef = useRef(null)
   const audioContextRef = useRef(null)
@@ -82,14 +81,17 @@ function FloatingMusicPlayer({ tracks }) {
   const shouldAutoplayRef = useRef(false)
 
   const currentTrack = trackQueue[trackIndex] ?? trackQueue[0] ?? tracks[0]
-  const lyrics = lyricsData?.lyrics ?? []
+  const lyricsData = lyricsState.data
+  const lyricsStatus = lyricsState.status
+  const lyrics = useMemo(() => lyricsData?.lyrics ?? [], [lyricsData])
   const activeLyric = useMemo(() => findActiveLyric(lyrics, currentTime), [lyrics, currentTime])
+  const activePrimaryLyric = activeLyric?.portuguese ?? activeLyric?.english
   const fallbackLyric =
     lyricsStatus === 'missing'
-      ? ['[lyrics JSON not saved yet]', '[歌词还没有保存]']
+      ? ['[letra ainda nao salva]', '[歌词还没有保存]']
       : lyricsStatus === 'error'
-        ? ['[lyrics API unavailable]', '[歌词接口暂时不可用]']
-        : ['[loading lyrics]', '[正在加载歌词]']
+        ? ['[API de letras indisponivel]', '[歌词接口暂时不可用]']
+        : ['[carregando letra]', '[正在加载歌词]']
 
   const stopAnalyser = useCallback(() => {
     if (animationFrameRef.current) {
@@ -97,12 +99,6 @@ function FloatingMusicPlayer({ tracks }) {
       animationFrameRef.current = null
     }
   }, [])
-
-  useEffect(() => {
-    setTrackQueue(buildSessionQueue(tracks))
-    setTrackIndex(0)
-    shouldAutoplayRef.current = false
-  }, [tracks])
 
   useEffect(() => {
     const handlePlayTrack = (event) => {
@@ -117,8 +113,8 @@ function FloatingMusicPlayer({ tracks }) {
       setTrackIndex(nextIndex)
     }
 
-    window.addEventListener('karina:play-track', handlePlayTrack)
-    return () => window.removeEventListener('karina:play-track', handlePlayTrack)
+    window.addEventListener('scarlett:play-track', handlePlayTrack)
+    return () => window.removeEventListener('scarlett:play-track', handlePlayTrack)
   }, [trackQueue])
 
   useEffect(() => {
@@ -260,17 +256,16 @@ function FloatingMusicPlayer({ tracks }) {
     }
 
     const controller = new AbortController()
-    setLyricsStatus('loading')
-    setLyricsData(null)
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- clears stale lyrics before the async request resolves.
+    setLyricsState({ data: null, status: 'loading' })
 
     fetchLyricsByMusicId(currentTrack.musicId, controller.signal)
       .then((data) => {
-        setLyricsData(data)
-        setLyricsStatus(data ? 'ready' : 'missing')
+        setLyricsState({ data, status: data ? 'ready' : 'missing' })
       })
       .catch((error) => {
         if (error.name !== 'AbortError') {
-          setLyricsStatus('error')
+          setLyricsState({ data: null, status: 'error' })
         }
       })
 
@@ -386,7 +381,7 @@ function FloatingMusicPlayer({ tracks }) {
 
           <div className="lyrics-panel" aria-live="polite">
             <p className="lyrics-english">
-              {activeLyric?.english ?? fallbackLyric[0]}
+              {activePrimaryLyric ?? fallbackLyric[0]}
             </p>
             <p className="lyrics-chinese">{activeLyric?.chinese ?? fallbackLyric[1]}</p>
           </div>
